@@ -1,0 +1,45 @@
+@import '../utils/variables.scss';
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  &__container {
+    margin: 32px 16px;
+
+    @include desktop { 
+      margin: 32px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 32px;
+    gap: 16px;
+
+    @include desktop {    
+      flex-direction: row;
+      margin-top: 0;
+      max-width: 380px;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    text-decoration: none;
+    color: $color-secondary;
+  }
+
+  &__goTop {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+}
