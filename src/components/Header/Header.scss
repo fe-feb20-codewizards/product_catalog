@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0 0 24px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
     margin-bottom: 40px;
   }
@@ -19,6 +18,7 @@
   
       &_right {
         display: flex;
+        list-style: none;
       }
     }
   
@@ -92,6 +92,7 @@
   
   .logo {
     margin-right: 64px;
+    border-bottom: 0px;
   }
   
   .is-active-link {
@@ -120,17 +121,38 @@
     text-decoration: none;
     font-family: 'Mont';
     border-bottom: #fff solid 2px;
-    padding-bottom: 18px;
+    padding-bottom: 24px;
+
+    &__btn {
+
+    }
 
     &:hover {
       color: #000;
       border-bottom: #000 solid 2px;
-      padding-bottom: 18px;
+      padding-bottom: 24px;
     }
   }
 
   .active {
     color: #000;
     border-bottom: #000 solid 2px;
-    padding-bottom: 18px;
+    padding-bottom: 24px;
   }
+
+  .nav-buttons {
+    display: flex;
+    height: 100%;
+}
+
+.nav-buttons__element {
+  display: flex;
+  align-items: center;
+  padding: 25px;
+  box-shadow: -1px 0 0 #e2e6e9;
+}
+
+.nav-buttons__icon {
+  width: 15px;
+  height: 15px;
+}

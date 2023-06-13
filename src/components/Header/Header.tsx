@@ -1,9 +1,7 @@
 import React from 'react';
 
 import './Header.scss';
-// import favorite from '../../images/favourites.svg';
-// import cart from '../../images/Cart.svg';
-// import logo from '../../images/Logo.png';
+
 
 export const Header = () => {
 	return (
@@ -14,11 +12,11 @@ export const Header = () => {
 						<li className="navigation-header__item logo">
 							<a
 								href="#home"
-								className="navigation-header__link"
+								className="navigation-header__link__logo"
 							>
 								<img
 									className="navigation-header__image"
-									//   src={logo}
+									src={process.env.PUBLIC_URL + '/images/logo.svg'}
 									alt="logo"
 								/>
 							</a>
@@ -58,32 +56,21 @@ export const Header = () => {
 						</li>
 					</ul>
 				</div>
-				<div className="navigation-header__right">
-					<ul className="navigation-header__list_right">
-						<li
-							className='navigation-header__item'
-						>
-						</li>
-        
-						<li className="navigation-header__item">
-							<a href="/favourites" className="navigation-header__link">
-								<img
-									className="navigation-header__image"
-									//   src={favorite}
-									alt="favorites"
-								/>
-							</a>
-						</li>
-						<li className="navigation-header__item">
-							<a href="/cart" className="navigation-header__link">
-								<img
-									className="navigation-header__image"
-									//   src={cart}
-									alt="cart"
-								/>
-							</a>
-						</li>
-					</ul>
+				<div className="nav-buttons">
+					<a href="/favorites" className="nav-buttons__element">
+						<img 
+							src={process.env.PUBLIC_URL + '/images/Shopping bag (Cart).svg'}
+							alt="favorities icon" 
+							className="nav-buttons__icon"
+						/>
+					</a>
+					<a href="/cart" className="nav-buttons__element">
+						<img 
+							src={process.env.PUBLIC_URL + '/images/Vector (Stroke).svg'}
+							alt="favorities icon" 
+							className="nav-buttons__icon"
+						/>
+					</a>
 				</div>
 			</nav>
 		</header>
