@@ -1,7 +1,7 @@
 import React from 'react';
 import './BurgerPopUp.scss';
 
-const BurgerPopUp = () => {
+export default function BurgerPopUp() {
 	return (
 		<div className="burger" id='nav'>
 			<nav className="navigation-burger">
@@ -68,6 +68,4 @@ const BurgerPopUp = () => {
 			</nav>
 		</div>
 	);
-};
-
-export default BurgerPopUp;
+}
