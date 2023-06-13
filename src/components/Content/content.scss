@@ -1,0 +1,12 @@
+@import '../../styles/utils/utils.scss';
+
+.content {
+  @include desktop { 
+    display: flex;
+    justify-content: center;
+  }
+
+  &__wrapper {
+    max-width: 1200px;
+  }
+}
