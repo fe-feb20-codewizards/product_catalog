@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
+import './card.scss';
 
 export default function Card() {
-  return (
-    <div className="card">
-      <div className="card__container">
+	return (
+		<div className="card">
+			<div className="card__container">
 				<div className="card__img">
 					<img
 						className="card__img-photo"
@@ -12,13 +13,13 @@ export default function Card() {
 					>
 					</img>
 				</div>
-        <div className="card__title">
+				<div className="card__title">
 					Product Title
-        </div>
-        <div className="card__price">
+				</div>
+				<div className="card__price">
 					<h4 className="card__price-head">100</h4>
 					<h4 className="card__price-discounted">200</h4>
-        </div>
+				</div>
 
 				<div className="card__divider"></div>
 
@@ -43,7 +44,7 @@ export default function Card() {
 						❤️			{/* //TODO: svg icon */}
 					</button>
 				</div>
-      </div>
-    </div>
-  )
+			</div>
+		</div>
+	);
 }
