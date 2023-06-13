@@ -1,6 +1,8 @@
 import React from 'react';
 
 import './Header.scss';
+import { NavLink } from 'react-router-dom';
+import classNames  from 'classnames';
 
 
 export const Header = () => {
@@ -10,49 +12,53 @@ export const Header = () => {
 				<div className="navigation-header__left">
 					<ul className="navigation-header__list_left">
 						<li className="navigation-header__item logo">
-							<a
-								href="#home"
-								className="navigation-header__link__logo"
+							<NavLink
+								to="/"
+								className="navigation-header__link__logo is-active-link"
 							>
 								<img
 									className="navigation-header__image"
 									src={process.env.PUBLIC_URL + '/images/logo.svg'}
 									alt="logo"
 								/>
-							</a>
+							</NavLink>
 						</li>
 						<li className="navigation-header__item_l">
-							<a 
-								href="/"
-								className='navigation-header__link active'
+							<NavLink 
+								to="/"
+								className={
+								({isActive}) => classNames('navigation-header__link', {'active': isActive})}
 							>
                 Home
-							</a >
+							</NavLink >
 						</li>
 						<li className="navigation-header__item_l">
-							<a 
-								href="/phones"
-								className='navigation-header__link'
+							<NavLink 
+								to="/phones"
+								className={
+								({isActive}) => classNames('navigation-header__link', {'active': isActive})}
 							>
                 Phones
-							</a >
+							</NavLink >
 						</li>
 						<li className="navigation-header__item_l">
-							<a 
-								href="/tablets"
-								className='navigation-header__link'
+							<NavLink 
+								to="/tablets"
+								className={
+								({isActive}) => classNames('navigation-header__link', {'active': isActive})}
                     
 							>
                 Tablets
-							</a >
+							</NavLink >
 						</li>
 						<li className="navigation-header__item_l">
-							<a 
-								href="/accessories"
-								className='navigation-header__link'
+							<NavLink 
+								to="/accessories"
+								className={
+								({isActive}) => classNames('navigation-header__link', {'active': isActive})}
 							>
                 Accessories
-							</a >
+							</NavLink >
 						</li>
 					</ul>
 				</div>
