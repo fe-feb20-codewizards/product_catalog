@@ -20,6 +20,8 @@ function App() {
 				<Route path="phonesPage">
 					<Route index element={<PhonesPage />} />
 					<Route path=":phoneId" element={<PhonesPage />} />
+				<Route path="tabletsPage" element={<h1>tabletPage</h1>}/>
+				<Route path="accessoriesPage" element={<h1>accessoriesPage</h1>}/>
 				</Route>
 				<Route path="/*" element={<NotFoundPage />} />
 			</Routes>
