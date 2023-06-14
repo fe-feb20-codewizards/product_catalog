@@ -11,7 +11,7 @@ const BurgerPopUp = () => {
 						<li className="navigation-burger__item_l">
 							<a
 								href="/"
-								className="navigation-burger__link active"
+								className="navigation-burger__link active-burger"
 							>
                 Home
 							</a>
@@ -58,7 +58,7 @@ const BurgerPopUp = () => {
 						className="nav-btn__element"
 					>
 						<img
-							src={process.env.PUBLIC_URL + '/images/Vector (Stroke).svg'}
+							src={process.env.PUBLIC_URL + '/images/heart.svg'}
 							alt="favorities icon"
 							className="nav-btn__icon"
 						/>
