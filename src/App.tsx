@@ -6,8 +6,6 @@ import { Header } from './components/Header/Header';
 import { PhonesPage } from './components/Content/PhonesPage';
 import Content from './components/Content/Content';
 import { NotFoundPage } from './components/NotFoundPage';
-
-
 function App() {
 	return (
 		<div className="App">

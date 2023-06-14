@@ -8,13 +8,15 @@ import Discounts from './Discounts/Discounts';
 export default function Content() {
 	return (
 		<main className="content">
-			<Welcome />
+			<div className="content__wrapper">
+				<Welcome />
 
-			<NewModels />
+				<NewModels />
 
-			<Categories />
+				<Categories />
 
-			<Discounts />
+				<Discounts />
+			</div>
 		</main>
 	);
 }
