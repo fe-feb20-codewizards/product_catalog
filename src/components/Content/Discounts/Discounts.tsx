@@ -3,15 +3,50 @@ import './discounts.scss';
 import Card from '../../Card/Card';
 import { usePageChanger } from '../../../utils';
 import { Link } from 'react-router-dom';
+import { Phone } from '../../../types/Phone';
 
-export default function Discounts() {
+interface DiscountsProps {
+  phones: Phone[];
+}
+
+export default function Discounts({ phones }: DiscountsProps) {
 	const page = usePageChanger(1);
-	const { currentCardPag, showingCards, firstPage, lastPage, } = page;
+	const { currentCardPag, firstPage } = page;
+
+	const getModelName = (name: string) => {
+		const regex = /^(.+)\s\d+GB/;
+		const match = name.match(regex);
+		return match ? match[1] : name;
+	};
+
+	const uniquePhones = Array.from(
+		phones
+			.reduce((map, phone) => {
+				const modelName = getModelName(phone.name);
+				if (!map.has(modelName)) {
+					map.set(modelName, phone);
+				}
+				return map;
+			}, new Map())
+			.values()
+	);
+
+	const discountedPhones = uniquePhones.filter(
+		(phone) => phone.price < phone.fullPrice
+	);
+
+	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
+
+	const CARDS_PER_PAGE = 4;
+	const totalPages = Math.ceil(shuffledPhones.length / CARDS_PER_PAGE);
+	const startIndex = (currentCardPag - 1) * CARDS_PER_PAGE;
+	const endIndex = startIndex + CARDS_PER_PAGE;
+	const paginatedPhones = shuffledPhones.slice(startIndex, endIndex);
 
 	return (
 		<section className="discounts">
 			<div className="discounts__header">
-				<h2>Brand new models</h2>
+				<h2>Hot prices</h2>
 				<div className="discounts__header__buttons">
 					<Link
 						to='prev'
@@ -24,15 +59,17 @@ export default function Discounts() {
 					<Link
 						to='next'
 						onClick={() => page.onPageChange(currentCardPag + 1)}
-						className={`new-models__header__buttons-right new-models__header__buttons__button ${lastPage && 'new-models__disabled'}`}
-						aria-disabled={lastPage}
+						className={`new-models__header__buttons-right new-models__header__buttons__button ${currentCardPag === totalPages && 'new-models__disabled'}`}
+						area-disabled={currentCardPag === totalPages}
 					>	
 						<img src={process.env.PUBLIC_URL + '/images/arrow-right.svg'} alt="" className='new-models__header__buttons__button__img' />
 					</Link>
 				</div>
 			</div>
 			<div className='discounts__cards'>
-				{showingCards.map(card => <>{card}<Card key={card} /></>)}
+				{paginatedPhones.map((phone) => (
+					<Card key={phone.id} phone={phone} />
+				))}
 			</div>
 		</section>
 	);

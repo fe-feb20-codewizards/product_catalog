@@ -3,10 +3,41 @@ import './newModels.scss';
 import Card from '../../Card/Card';
 import { usePageChanger } from '../../../utils';
 import { Link } from 'react-router-dom';
+import { Phone } from '../../../types/Phone';
 
-export default function NewModels() {
+interface NewModelsProps {
+  phones: Phone[];
+}
+
+export default function NewModels({ phones }: NewModelsProps) {
 	const page = usePageChanger(1);
-	const { currentCardPag, showingCards, firstPage, lastPage } = page;
+	const { currentCardPag, firstPage } = page;
+
+	const getModelName = (name: string) => {
+		const regex = /^(.+)\s\d+GB/;
+		const match = name.match(regex);
+		return match ? match[1] : name;
+	};
+
+	const uniquePhones = Array.from(
+		phones
+			.reduce((map, phone) => {
+				const modelName = getModelName(phone.name);
+				if (!map.has(modelName)) {
+					map.set(modelName, phone);
+				}
+				return map;
+			}, new Map())
+			.values()
+	);
+	
+	const latestPhones = uniquePhones.sort((a, b) => b.year - a.year);
+
+	const CARDS_PER_PAGE = 4;
+	const totalPages = Math.ceil(latestPhones.length / CARDS_PER_PAGE);
+	const startIndex = (currentCardPag - 1) * CARDS_PER_PAGE;
+	const endIndex = startIndex + CARDS_PER_PAGE;
+	const paginatedPhones = latestPhones.slice(startIndex, endIndex);
 
 	return (
 		<section className="new-models">
@@ -27,8 +58,8 @@ export default function NewModels() {
 					<Link
 						to='next'
 						onClick={() => page.onPageChange(currentCardPag + 1)}
-						className={`new-models__header__buttons-right new-models__header__buttons__button ${lastPage && 'new-models__disabled'}`}
-						aria-disabled={lastPage}
+						className={`new-models__header__buttons-right new-models__header__buttons__button ${currentCardPag === totalPages && 'new-models__disabled'}`}
+						area-disabled={currentCardPag === totalPages}
 					>
 						<img
 							className='new-models__header__buttons__button__img'
@@ -38,7 +69,9 @@ export default function NewModels() {
 				</div>
 			</div>
 			<div className='new-models__cards'>
-				{showingCards.map(card => <>{card}<Card key={card} /></>)}
+				{paginatedPhones.map((phone) => (
+					<Card key={phone.id} phone={phone} />
+				))}
 			</div>
 		</section>
 	);
