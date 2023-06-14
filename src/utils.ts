@@ -14,15 +14,17 @@ export const usePageChanger = (initialValue: number) => {
 	const [currentCardPag, setCurrentCarPag] = useState(initialValue);
 	const onPageChange = (page: number) => setCurrentCarPag(page);
 
-	const total = 16;
-	const startingCard = currentCardPag * 4 - 4 + 1;
-	const endingCard = currentCardPag + 4 - 1 > total
+	const total = 36;
+	const startingCard = currentCardPag * 4 - 3;
+	const endingCard = currentCardPag + 3 > total
 		? total
-		: startingCard + 4 - 1;
+		: startingCard + 3;
+
+	const numberOfPages = Math.round(total / 4);
 
 	const showingCards = getCards(startingCard, endingCard);
 	const firstPage = currentCardPag === 1;
-	const lastPage = currentCardPag === total;
+	const lastPage = currentCardPag === numberOfPages;
 
 	return { currentCardPag, onPageChange, startingCard, endingCard, showingCards, firstPage, lastPage };
 };

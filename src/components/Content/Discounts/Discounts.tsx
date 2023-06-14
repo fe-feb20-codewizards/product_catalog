@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function Discounts() {
 	const page = usePageChanger(1);
-	const { currentCardPag, showingCards, firstPage, lastPage } = page;
+	const { currentCardPag, showingCards, firstPage, lastPage, } = page;
 
 	return (
 		<section className="discounts">
