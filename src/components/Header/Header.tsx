@@ -94,7 +94,7 @@ export const Header = () => {
 					<a
 						href={linkHref}
 						className={`nav-buttons__element none ${isActive ? 'lineactive' : ''
-							}`}
+						}`}
 						onClick={handleBurgerClick}
 					>
 						<div className="burgerline"></div>

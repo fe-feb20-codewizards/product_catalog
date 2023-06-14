@@ -18,6 +18,9 @@ function App() {
 				<Route path="phones" element={<PhonesPage />} />
 				<Route path="tablets" element={<h1>tabletPage</h1>} />
 				<Route path="accessories" element={<h1>accessoriesPage</h1>} />
+				<Route path="favorites" element={<h2>Favories</h2>} />
+				<Route path="cart" element={<h2>Cart</h2>} />
+				<Route path="product_catalog" element={<Navigate to="/" />} />
 				<Route path="/*" element={<NotFoundPage />} />
 			</Routes>
 
