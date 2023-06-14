@@ -28,7 +28,9 @@ function App() {
 				<Header />
 			</header>
 			<Routes>
-				<Route path="/" element={<Content />} />
+				<Route path="/" element={<Content />}>
+					<Route path=':direction' element={<Content />}/>
+				</Route>
 				<Route path="/home" element={<Navigate to="/" />} />
 				<Route path="phones" element={<PhonesPage />} />
 				<Route path="tablets" element={<h1>tabletPage</h1>} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './Header.scss';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 import BurgerPopUp from '../BurgerPopUp/BurgerPopUp';
 
@@ -71,8 +71,8 @@ export const Header = () => {
 					</NavLink>
 				</li>
 				<div className="nav-buttons">
-					<a
-						href="/favorites"
+					<Link
+						to="/favorites"
 						className="nav-buttons__element block"
 					>
 						<img
@@ -80,9 +80,9 @@ export const Header = () => {
 							alt="favorities icon"
 							className="nav-buttons__icon"
 						/>
-					</a>
-					<a
-						href="/cart"
+					</Link>
+					<Link
+						to="/cart"
 						className="nav-buttons__element block"
 					>
 						<img
@@ -90,7 +90,7 @@ export const Header = () => {
 							alt="favorities icon"
 							className="nav-buttons__icon"
 						/>
-					</a>
+					</Link>
 					<a
 						href={linkHref}
 						className={`nav-buttons__element none ${isActive ? 'lineactive' : ''

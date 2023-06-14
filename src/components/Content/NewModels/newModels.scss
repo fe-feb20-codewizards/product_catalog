@@ -23,6 +23,10 @@
         height: 32px;
         background-color: $color-white;
         border: 1px solid $color-icons;
+
+        &__img {
+          margin: 30%;
+        }
       }
     }
   }
@@ -32,5 +36,9 @@
     gap: 16px;
     overflow: hidden;
     justify-content: space-between;
+  }
+
+  &__disabled {
+    pointer-events: none;
   }
 }
