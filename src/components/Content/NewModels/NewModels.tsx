@@ -3,11 +3,14 @@ import './newModels.scss';
 import Card from '../../Card/Card';
 import { usePageChanger } from '../../../utils';
 import { Link } from 'react-router-dom';
+import { useCatalogContext } from '../../CatalogContext';
 
 export default function NewModels() {
 	const page = usePageChanger(1);
-	const { currentCardPag, showingCards, firstPage, lastPage } = page;
+	const { currentCardPag, firstPage, lastPage, startingCard, endingCard } = page;
+	const {uniquePhones} = useCatalogContext();
 
+	const showingCards = uniquePhones.slice(startingCard - 1, endingCard);
 	return (
 		<section className="new-models">
 			<div className="new-models__header">
@@ -38,7 +41,7 @@ export default function NewModels() {
 				</div>
 			</div>
 			<div className='new-models__cards'>
-				{showingCards.map(card => <>{card}<Card key={card} /></>)}
+				{showingCards.map(card => <Card key={card.id} phone={card} />)}
 			</div>
 		</section>
 	);

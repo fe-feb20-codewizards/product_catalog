@@ -3,10 +3,14 @@ import './discounts.scss';
 import Card from '../../Card/Card';
 import { usePageChanger } from '../../../utils';
 import { Link } from 'react-router-dom';
+import { useCatalogContext } from '../../CatalogContext';
 
 export default function Discounts() {
 	const page = usePageChanger(1);
-	const { currentCardPag, showingCards, firstPage, lastPage, } = page;
+	const { currentCardPag, firstPage, lastPage, startingCard, endingCard } = page;
+	const {uniquePhones} = useCatalogContext();
+
+	const showingCards = uniquePhones.slice(startingCard - 1, endingCard);
 
 	return (
 		<section className="discounts">
@@ -32,7 +36,7 @@ export default function Discounts() {
 				</div>
 			</div>
 			<div className='discounts__cards'>
-				{showingCards.map(card => <>{card}<Card key={card} /></>)}
+				{showingCards.map(card => <Card key={card.id} phone={card} />)}
 			</div>
 		</section>
 	);
