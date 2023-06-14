@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export function NotFoundPage() {
 	return (
-		<div style={{
+		<div className="Page" style={{
 			color: '#EB5757', margin: '50px auto', textAlign: 'center'
 		}}>
 			<h1 style={{fontSize: '50px', fontFamily: 'Arial', margin: '25px'}}> Page Not Found! </h1>

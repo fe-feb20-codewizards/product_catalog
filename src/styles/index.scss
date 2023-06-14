@@ -1,11 +1,19 @@
 @import './utils/utils.scss';
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Mont Regular";
   font-size: 14px;
   line-height: 21px;
   letter-spacing: 0;
+}
+
+.page {
+  min-height: 100vh;
 }
 
 // Mobile
