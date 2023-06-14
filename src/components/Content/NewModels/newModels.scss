@@ -1,0 +1,36 @@
+@import '../../../styles/utils/utils.scss';
+
+.new-models {
+  padding: 16px;
+  @include tablet { 
+    padding: 24px;
+  }
+  @include desktop { 
+    padding: 32px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__buttons {
+      display: flex;
+      gap: 16px;
+
+      &__button {
+        width: 32px;
+        height: 32px;
+        background-color: $color-white;
+        border: 1px solid $color-icons;
+      }
+    }
+  }
+
+  &__cards {
+    display: flex;
+    gap: 16px;
+    overflow: hidden;
+    justify-content: space-between;
+  }
+}

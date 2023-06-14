@@ -3,6 +3,7 @@ import './styles/App.scss';
 
 import Footer from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
+import Content from './components/Content/Content';
 
 function App() {
 	return (
@@ -10,8 +11,9 @@ function App() {
 			<header>
 				<Header />
 			</header>
-
-			<main></main>
+			<main>
+				<Content />
+			</main>
 
 			<footer>
 				<Footer />
