@@ -1,3 +1,5 @@
+@import '../../styles/utils/utils.scss';
+
 .burger {
   height: 100vh;
 }
@@ -58,7 +60,7 @@
     color: #89939a;
     transition: all 0.3s ease 0s;
     text-decoration: none;
-    font-family: 'Mont';
+    font-family: "Mont Regular";
     padding-bottom: 12px;
 
     &:hover {

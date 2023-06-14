@@ -14,17 +14,3 @@ export const getAllPhones = async() => {
 
 	return data || [];
 };
-
-//paste to app.tsx:
-
-// const [phonesData, setPhonesData] = useState<Phone[]>([]);
-
-// useEffect(() => {
-//   getAllPhones()
-//     .then((response) => {
-//       setPhones(response);
-//     })
-//     .catch((error) => {
-//       console.error(error.message);
-//     });
-// }, []);
