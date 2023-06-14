@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
-import classNames  from 'classnames';
+import classNames from 'classnames';
+import BurgerPopUp from '../BurgerPopUp/BurgerPopUp';
 
+export const Header = () => {
+	const [isActive, setIsActive] = useState(false);
 
-export function Header ()  {
+	const handleBurgerClick = () => {
+		setIsActive((prevIsActive) => !prevIsActive);
+	};
+
+	const linkHref = isActive ? '#nav' : '#';
+
 	return (
 		<div className="navigation-header__left">
+			<BurgerPopUp />
 			<ul className="navigation-header__list_left">
 				<li className="navigation-header__item logo">
 					<NavLink
@@ -22,43 +31,78 @@ export function Header ()  {
 					</NavLink>
 				</li>
 				<li className="navigation-header__item_l">
-					<NavLink 
+					<NavLink
 						to="/"
-						className={
-							({isActive}) => classNames('navigation-header__link', {'active': isActive})}
+						className={({ isActive }) =>
+							classNames('navigation-header__link', { active: isActive })
+						}
 					>
-                Home
-					</NavLink >
+						Home
+					</NavLink>
 				</li>
 				<li className="navigation-header__item_l">
-					<NavLink 
+					<NavLink
 						to="/phones"
-						className={
-							({isActive}) => classNames('navigation-header__link', {'active': isActive})}
+						className={({ isActive }) =>
+							classNames('navigation-header__link', { active: isActive })
+						}
 					>
-                Phones
-					</NavLink >
+						Phones
+					</NavLink>
 				</li>
 				<li className="navigation-header__item_l">
-					<NavLink 
+					<NavLink
 						to="/tablets"
-						className={
-							({isActive}) => classNames('navigation-header__link', {'active': isActive})}
-
+						className={({ isActive }) =>
+							classNames('navigation-header__link', { active: isActive })
+						}
 					>
-                Tablets
-					</NavLink >
+						Tablets
+					</NavLink>
 				</li>
 				<li className="navigation-header__item_l">
-					<NavLink 
+					<NavLink
 						to="/accessories"
-						className={
-							({isActive}) => classNames('navigation-header__link', {'active': isActive})}
+						className={({ isActive }) =>
+							classNames('navigation-header__link', { active: isActive })
+						}
 					>
-                Accessories
-					</NavLink >
+						Accessories
+					</NavLink>
 				</li>
+				<div className="nav-buttons">
+					<a
+						href="/favorites"
+						className="nav-buttons__element block"
+					>
+						<img
+							src={process.env.PUBLIC_URL + '/images/Shopping bag (Cart).svg'}
+							alt="favorities icon"
+							className="nav-buttons__icon"
+						/>
+					</a>
+					<a
+						href="/cart"
+						className="nav-buttons__element block"
+					>
+						<img
+							src={process.env.PUBLIC_URL + '/images/heart.svg'}
+							alt="favorities icon"
+							className="nav-buttons__icon"
+						/>
+					</a>
+					<a
+						href={linkHref}
+						className={`nav-buttons__element none ${isActive ? 'lineactive' : ''
+							}`}
+						onClick={handleBurgerClick}
+					>
+						<div className="burgerline"></div>
+						<div className="burgerline"></div>
+						<div className="burgerline"></div>
+					</a>
+				</div>
 			</ul>
 		</div>
 	);
-}
+};
