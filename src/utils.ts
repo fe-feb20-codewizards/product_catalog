@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Phone } from './types/Phone';
 
 export function getCards(from: number, to: number): number[] {
 	const cards = [];
@@ -9,6 +10,15 @@ export function getCards(from: number, to: number): number[] {
 
 	return cards;
 }
+
+export const paginatePhones = (phonesToPaginate: Phone[], currentCardPag: number) => {
+	const CARDS_PER_PAGE = 4;
+	const totalPages = Math.ceil(phonesToPaginate.length / CARDS_PER_PAGE);
+	const startIndex = (currentCardPag - 1) * CARDS_PER_PAGE;
+	const endIndex = startIndex + CARDS_PER_PAGE;
+	const paginatedPhones = phonesToPaginate.slice(startIndex, endIndex);
+	return { paginatedPhones, totalPages };
+};
 
 export const usePageChanger = (initialValue: number) => {
 	const [currentCardPag, setCurrentCarPag] = useState(initialValue);

@@ -1,7 +1,7 @@
 import React from 'react';
 import './discounts.scss';
 import Card from '../../Card/Card';
-import { usePageChanger } from '../../../utils';
+import { paginatePhones, usePageChanger } from '../../../utils';
 import { Link } from 'react-router-dom';
 import { Phone } from '../../../types/Phone';
 
@@ -37,11 +37,7 @@ export default function Discounts({ phones }: DiscountsProps) {
 
 	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
 
-	const CARDS_PER_PAGE = 4;
-	const totalPages = Math.ceil(shuffledPhones.length / CARDS_PER_PAGE);
-	const startIndex = (currentCardPag - 1) * CARDS_PER_PAGE;
-	const endIndex = startIndex + CARDS_PER_PAGE;
-	const paginatedPhones = shuffledPhones.slice(startIndex, endIndex);
+	const { paginatedPhones, totalPages } = paginatePhones(shuffledPhones, currentCardPag);
 
 	return (
 		<section className="discounts">

@@ -1,7 +1,7 @@
 import React from 'react';
 import './newModels.scss';
 import Card from '../../Card/Card';
-import { usePageChanger } from '../../../utils';
+import { usePageChanger, paginatePhones } from '../../../utils';
 import { Link } from 'react-router-dom';
 import { Phone } from '../../../types/Phone';
 
@@ -33,11 +33,7 @@ export default function NewModels({ phones }: NewModelsProps) {
 	
 	const latestPhones = uniquePhones.sort((a, b) => b.year - a.year);
 
-	const CARDS_PER_PAGE = 4;
-	const totalPages = Math.ceil(latestPhones.length / CARDS_PER_PAGE);
-	const startIndex = (currentCardPag - 1) * CARDS_PER_PAGE;
-	const endIndex = startIndex + CARDS_PER_PAGE;
-	const paginatedPhones = latestPhones.slice(startIndex, endIndex);
+	const { paginatedPhones, totalPages } = paginatePhones(latestPhones, currentCardPag);
 
 	return (
 		<section className="new-models">
