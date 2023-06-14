@@ -41,7 +41,11 @@ export default function Card() {
 						Add to cart
 					</button>
 					<button className="card__buttons-add-to-favorites">	
-						❤️			{/* //TODO: svg icon */}
+						<img
+							className="card__buttons-add-to-favorites-icon"
+							src={process.env.PUBLIC_URL + '/images/heart.svg'}
+							alt="Add to favorites"
+						/>
 					</button>
 				</div>
 			</div>

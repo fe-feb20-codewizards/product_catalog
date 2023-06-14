@@ -17,11 +17,11 @@
     &-photo {
       width: 150px;
 
-      @media (min-width: 640px) {     //TODO: Change media to mixin 
+      @include tablet {
         width: 175px;
       }
 
-      @media (min-width: 1200px) { 
+      @include desktop { 
         width: 210px;
       }
     }
