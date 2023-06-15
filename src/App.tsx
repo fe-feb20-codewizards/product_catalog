@@ -6,6 +6,7 @@ import { Header } from './components/Header/Header';
 import { PhonesPage } from './components/Content/PhonesPage';
 import Content from './components/Content/Content';
 import { NotFoundPage } from './components/NotFoundPage';
+import { Cart } from './components/Cart/Cart';
 
 function App() {
 	return (
@@ -22,7 +23,7 @@ function App() {
 				<Route path="tablets" element={<h1>tabletPage</h1>} />
 				<Route path="accessories" element={<h1>accessoriesPage</h1>} />
 				<Route path="favorites" element={<h2>Favories</h2>} />
-				<Route path="cart" element={<h2>Cart</h2>} />
+				<Route path="cart" element={<Cart />} />
 				<Route path="product_catalog" element={<Navigate to="/" />} />
 				<Route path="/*" element={<NotFoundPage />} />
 			</Routes>
