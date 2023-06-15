@@ -1,70 +1,122 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Cart.scss';
+import { CartItem } from './CartItem/CartItem';
+import { Checkout } from './Checkout/Checkout';
+import { Phone } from '../../types/Phone';
+import PhoneInCart from '../../types/PhoneInCart';
 
 export function Cart() {
-	const phone = {
-		title: 'Apple Iphone 14 Pro 128GB Silver (MQ023)',
-		price: 999,
-		id: 1,
-		img: '/img/phones/apple-iphone-11/black/00.jpg'
-	};
-	const { img, title, price, id } = phone;
-	return (
+	const mokeData: Phone[] = [
+		{
+			'id': '1',
+			'category': 'phones',
+			'phoneId': 'apple-iphone-7-32gb-black',
+			'itemId': 'apple-iphone-7-32gb-black',
+			'name': 'Apple iPhone 7 32GB Black',
+			'fullPrice': 400,
+			'price': 375,
+			'screen': '4.7\' IPS',
+			'capacity': '32GB',
+			'color': 'black',
+			'ram': '2GB',
+			'year': 2016,
+			'image': 'img/phones/apple-iphone-7/black/00.jpg'
+		},
+		{
+			'id': '10',
+			'category': 'phones',
+			'phoneId': 'apple-iphone-11-pro-max-64gb-spacegray',
+			'itemId': 'apple-iphone-11-pro-max-64gb-spacegray',
+			'name': 'Apple iPhone 11 Pro Max 64GB Spacegray',
+			'fullPrice': 1480,
+			'price': 1400,
+			'screen': '6.5\' OLED',
+			'capacity': '64GB',
+			'color': 'spacegray',
+			'ram': '4GB',
+			'year': 2019,
+			'image': 'img/phones/apple-iphone-11-pro-max/spacegray/00.jpg'
+		},
+	];
 
+	const [phones, setPhones] = useState<PhoneInCart[]>([]);
+	const [checkoutSum, setCheckoutSum] = useState(0);
+	const [allQuantity, setAllQuantity] = useState(0);
+
+	//dodaje ilość sztuk do obiektu każdego telefonu
+	useEffect(() => {
+		setPhones(
+			mokeData.map(phone => (
+				{
+					...phone,
+					quantity: 1,
+				}
+			))
+		);
+	}, []);
+
+
+	useEffect(() => {
+		//oblicza sume koszyka
+		setCheckoutSum(
+			phones.reduce(
+				(sum, phone) => sum + phone.price * phone.quantity,
+				0
+			)
+		);
+
+		//ustawia zbiorową ilość SZTUK w koszyku
+		setAllQuantity(
+			phones.reduce(
+				(sum, phone) => sum + phone.quantity,
+				0
+			)
+		);
+	}, [phones]);
+
+	const handleRemoveFromCart = (id: string) => {
+		setPhones(
+			phones.filter(phone => phone.id !== id)
+		);
+
+	};
+
+	const handleChangeQuantity = (id: string, value: number) => {
+		const current = phones.find(phone => phone.id === id);
+
+		if (current?.quantity === 1 && value === -1) {
+			handleRemoveFromCart(id);
+		}
+
+		setPhones((prev) => (
+			prev.map((phone) => {
+				if (phone.id === id) {
+					return {
+						...phone,
+						quantity: phone.quantity + value,
+					};
+				}
+
+				return phone;
+			})
+		));
+	};
+
+	return (
 		<div className="cart">
 			<h3 className="cart__title">Cart</h3>
 			<div className="cart__content">
 				<div className="cart__products">
-					<div className="cartItem">
-						<div className="cartItem__info">
-							<a className="cartItem__delete">x</a >
-							<div className="cartItem__titleWrapper">
-								<img className="cartItem__image" src={process.env.PUBLIC_URL + img} alt="product.name" />
-								<p className="cartItem__title">
-									<span>{title}</span>
-								</p>
-							</div>
-						</div>
-						<div className="cartItem__amount">
-							<div className='cartItem__amount-buttons'>
-								<button className="cartItem__amount-button">-</button>
-								<p className="cartItem__amount-value">{22}</p>
-								<button className="cartItem__amount-button" >+</button>
-							</div>
-							<p className="cartItem__price">{price}</p>
-						</div >
-					</div >
-
-					<div className="cartItem">
-						<div className="cartItem__info">
-							<a className="cartItem__delete">x</a >
-							<div className="cartItem__titleWrapper">
-								<img className="cartItem__image" src={process.env.PUBLIC_URL + img} alt="product.name" />
-								<p className="cartItem__title">
-									<span>{title}</span>
-								</p>
-							</div>
-						</div>
-						<div className="cartItem__amount">
-							<div className='cartItem__amount-buttons'>
-								<button className="cartItem__amount-button">-</button>
-								<p className="cartItem__amount-value">{22}</p>
-								<button className="cartItem__amount-button" >+</button>
-							</div>
-							<p className="cartItem__price">{price}</p>
-						</div >
-					</div >
-
+					{phones.map(phone => (
+						<CartItem
+							key={phone.id}
+							phone={phone}
+							handleChangeQuantity={handleChangeQuantity}
+							handleRemoveFromCart={handleRemoveFromCart}
+						/>
+					))}
 				</div>
-				<div className="cart__checkout">
-					<div className="checkout">
-						<div className="checkout__info">
-							<p className="checkout__sum">2657</p>
-							<p className="checkout__total">Total for 3 items</p>
-						</div>
-						<button className="checkout__button">Checkout</button>
-					</div>
-				</div>
+				<Checkout sum={checkoutSum} quantity={allQuantity} />
 			</div>
 		</div>
 	);

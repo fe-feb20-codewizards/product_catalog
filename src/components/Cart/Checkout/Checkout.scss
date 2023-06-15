@@ -1,0 +1,46 @@
+@import '../../../styles/utils/utils.scss';
+
+.checkout {
+	border: 1px solid #E2E6E9;
+	padding: 0 25px;
+	margin-top: 32px;
+	
+	@include desktop {
+		margin-top: 0;
+	}
+
+	&__info {
+		border-bottom: 1px solid #E2E6E9;
+		text-align: center;
+		padding: 10px;
+	}
+
+	&__sum {
+		font-size: 32px;
+
+		&::before {
+			content: '$';
+		}
+	}
+
+	&__total {
+		color: $color-secondary;
+	}
+
+	&__button {
+		width: 100%;
+		border-radius: 0;
+		background-color: #313237;
+		border: 1px solid rgba(0, 0, 0, 0);
+		color: white;
+		padding: 15px;
+		margin: 15px 0;
+
+		&:hover {
+			border: 1px solid #313237;
+			color: #313237;
+			background-color: white;
+			cursor: pointer;
+		}
+	}
+}
