@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 import { useCatalogContext } from '../../CatalogContext';
 
 export default function NewModels() {
-	const page = usePageChanger(1);
-	const { currentCardPag, firstPage, lastPage, startingCard, endingCard } = page;
 	const {uniquePhones} = useCatalogContext();
+	const latestPhones = uniquePhones.sort((a, b) => b.year - a.year);
+	const page = usePageChanger(1, latestPhones.length);
+	const { currentCardPag, firstPage, lastPage, startingCard, endingCard, onPageChange } = page;
+	
 
-	const showingCards = uniquePhones.slice(startingCard - 1, endingCard);
+	const showingCards = latestPhones.slice(startingCard - 1, endingCard);
 	return (
 		<section className="new-models">
 			<div className="new-models__header">
@@ -19,8 +21,8 @@ export default function NewModels() {
 					<Link
 						to='prev'
 						className={`new-models__header__buttons-left new-models__header__buttons__button ${firstPage && 'new-models__disabled'}`}
-						onClick={() => page.onPageChange(currentCardPag - 1)}
-						area-disabled={firstPage}
+						onClick={() => onPageChange(currentCardPag - 1)}
+						
 					>
 						<img
 							className='new-models__header__buttons__button__img'
@@ -29,9 +31,9 @@ export default function NewModels() {
 					</Link>
 					<Link
 						to='next'
-						onClick={() => page.onPageChange(currentCardPag + 1)}
+						onClick={() => onPageChange(currentCardPag + 1)}
 						className={`new-models__header__buttons-right new-models__header__buttons__button ${lastPage && 'new-models__disabled'}`}
-						aria-disabled={lastPage}
+						
 					>
 						<img
 							className='new-models__header__buttons__button__img'

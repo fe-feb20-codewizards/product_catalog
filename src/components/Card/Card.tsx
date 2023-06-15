@@ -30,7 +30,7 @@ export default function Card({ phone }: CardProps) {
 					{name}
 				</div>
 				<div className="card__price">
-					<h4 className="card__price-head">{price}</h4>
+					{price !== fullPrice && <h4 className="card__price-head">{price}</h4>}
 					<h4 className="card__price-discounted">{fullPrice}</h4>
 				</div>
 
