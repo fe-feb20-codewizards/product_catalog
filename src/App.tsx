@@ -16,7 +16,7 @@ function App() {
 				<Header />
 			</header>
 			<Routes>
-				<Route path="/:itemId" element={<ProductPage />} />
+				<Route path="/item/:itemId" element={<ProductPage />} />
 				<Route path="/" element={<Content />}>
 					<Route path=':direction' element={<Content />}/>
 				</Route>

@@ -18,7 +18,7 @@ export default function Card({ phone }: CardProps) {
 		image
 	} = phone;
 	return (
-		<Link to={`/${itemId}`}>
+		<Link className="no-underline" to={`/item/${itemId}`}>
 			<div className="card">
 				<div className="card__container">
 					<div className="card__img">
