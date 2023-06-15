@@ -3,36 +3,44 @@ import './discounts.scss';
 import Card from '../../Card/Card';
 import { usePageChanger } from '../../../utils';
 import { Link } from 'react-router-dom';
+import { useCatalogContext } from '../../CatalogContext';
 
 export default function Discounts() {
-	const page = usePageChanger(1);
-	const { currentCardPag, showingCards, firstPage, lastPage, } = page;
+	const {uniquePhones} = useCatalogContext();
+	const discountedPhones = uniquePhones.filter(
+		(phone) => phone.price < phone.fullPrice
+	);
+
+	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
+	const page = usePageChanger(1, shuffledPhones.length);
+	const { currentCardPag, firstPage, lastPage, startingCard, endingCard, onPageChange } = page;
+	
+
+	const showingCards = shuffledPhones.slice(startingCard - 1, endingCard);
 
 	return (
 		<section className="discounts">
 			<div className="discounts__header">
-				<h2>Brand new models</h2>
+				<h2>Hot prices</h2>
 				<div className="discounts__header__buttons">
 					<Link
 						to='prev'
 						className={`new-models__header__buttons-left new-models__header__buttons__button ${firstPage && 'new-models__disabled'}`}
-						onClick={() => page.onPageChange(currentCardPag - 1)}
-						area-disabled={firstPage}
+						onClick={() => onPageChange(currentCardPag - 1)}
 					>
 						<img src={process.env.PUBLIC_URL + '/images/arrow-left.svg'} alt="" className='new-models__header__buttons__button__img' /> 
 					</Link>
 					<Link
 						to='next'
-						onClick={() => page.onPageChange(currentCardPag + 1)}
+						onClick={() => onPageChange(currentCardPag + 1)}
 						className={`new-models__header__buttons-right new-models__header__buttons__button ${lastPage && 'new-models__disabled'}`}
-						aria-disabled={lastPage}
 					>	
 						<img src={process.env.PUBLIC_URL + '/images/arrow-right.svg'} alt="" className='new-models__header__buttons__button__img' />
 					</Link>
 				</div>
 			</div>
 			<div className='discounts__cards'>
-				{showingCards.map(card => <>{card}<Card key={card} /></>)}
+				{showingCards.map(card => <Card key={card.id} phone={card} />)}
 			</div>
 		</section>
 	);

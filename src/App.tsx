@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './styles/App.scss';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
@@ -6,22 +6,8 @@ import { Header } from './components/Header/Header';
 import { PhonesPage } from './components/Content/PhonesPage';
 import Content from './components/Content/Content';
 import { NotFoundPage } from './components/NotFoundPage';
-import { getAllPhones } from './api/phones';
-import { Phone } from './types/Phone';
 
 function App() {
-	const [phonesData, setPhonesData] = useState<Phone[]>([]);
-
-	useEffect(() => {
-		getAllPhones()
-			.then((response) => {
-				setPhonesData(response);
-			})
-			.catch((error) => {
-				console.error(error.message);
-			});
-	}, []);
-
 	return (
 		<div className="App">
 			<header>

@@ -1,33 +1,46 @@
 import React from 'react';
 import './card.scss';
-
-export default function Card() {
+import { Phone } from '../../types/Phone';
+interface CardProps {
+	phone: Phone;
+  }
+  
+export default function Card({ phone }: CardProps) {
+	const {
+		name,
+		fullPrice,
+		price,
+		screen,
+		capacity,
+		ram,
+		image
+	} = phone;
 	return (
 		<div className="card">
 			<div className="card__container">
 				<div className="card__img">
 					<img
 						className="card__img-photo"
-						src="https://picsum.photos/170/200"
+						src={process.env.PUBLIC_URL + '/' + image}
 						alt="Product"
 					>
 					</img>
 				</div>
 				<div className="card__title">
-					Product Title
+					{name}
 				</div>
 				<div className="card__price">
-					<h4 className="card__price-head">100</h4>
-					<h4 className="card__price-discounted">200</h4>
+					{price !== fullPrice && <h4 className="card__price-head">{price}</h4>}
+					<h4 className="card__price-discounted">{fullPrice}</h4>
 				</div>
 
 				<div className="card__divider"></div>
 
 				<ul className="card__info">
 					<div className="card__info-left">
-						<li>Screen</li>
-						<li>Capacity</li>
-						<li>RAM</li>
+						<li>{screen}</li>
+						<li>{capacity}</li>
+						<li>{ram}</li>
 					</div>
 					<div className="card__info-right">
 						<li>Screen Info</li>
