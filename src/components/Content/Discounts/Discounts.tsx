@@ -26,14 +26,20 @@ export default function Discounts() {
 			? 240
 			: 215;
 
+	const gap = getWidthWindow() > 1200
+		? 56
+		: getWidthWindow() > 640
+			? 48
+			: 40;
+
 	const handleBack = () => {
 		onPageChange(currentCardPag - 1);
-		onPosChange(pos - widthCard * 4 - 56 * 4);
+		onPosChange(pos - widthCard * 4 - gap * 4);
 	};
 
 	const handleForward = () => {
 		onPageChange(currentCardPag + 1);
-		onPosChange(pos + widthCard * 4 + 56 * 4);
+		onPosChange(pos + widthCard * 4 + gap * 4);
 	};
 
 	const showingCards = shuffledPhones;
