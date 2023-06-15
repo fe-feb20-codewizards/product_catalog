@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Cart.scss';
 
 export function Cart() {
@@ -9,6 +9,16 @@ export function Cart() {
 		img: '/img/phones/apple-iphone-11/black/00.jpg'
 	};
 	const { img, title, price, id } = phone;
+
+	const [showConfirmation, setShowConfirmation] = useState(false);
+  
+	const handleCheckout = () => {
+		setShowConfirmation(true);
+		setTimeout(() => {
+			window.location.href = '/';
+		}, 5000);
+	};
+
 	return (
 
 		<div className="cart">
@@ -62,7 +72,15 @@ export function Cart() {
 							<p className="checkout__sum">2657</p>
 							<p className="checkout__total">Total for 3 items</p>
 						</div>
-						<button className="checkout__button">Checkout</button>
+						{!showConfirmation ? (
+							<button className="checkout__button" onClick={handleCheckout}>
+                                Checkout
+							</button>
+						) : (
+							<p className='success-message'>
+								Thank you for your order. Redirecting you to the homepage in 5 seconds...
+							</p>
+						)}
 					</div>
 				</div>
 			</div>
