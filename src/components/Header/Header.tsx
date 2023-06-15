@@ -76,7 +76,7 @@ export const Header = () => {
 				</div>
 				<div className="nav-buttons">
 					<Link
-						to="/cart"
+						to="/favorites"
 						className="nav-buttons__element block"
 					>
 						<img
@@ -86,7 +86,7 @@ export const Header = () => {
 						/>
 					</Link>
 					<Link
-						to="/favorites"
+						to="/cart"
 						className="nav-buttons__element block"
 					>
 						<img
