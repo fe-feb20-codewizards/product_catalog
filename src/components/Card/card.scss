@@ -4,27 +4,31 @@
   display: flex;
 
   &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid $color-elements;
     box-sizing: border-box;
     padding: 32px;
+    width: 215px;
+    @include tablet {
+      width: 240px;
+    }
+
+    @include desktop { 
+      width: 275px;
+    }
   }
+
 
   &__img {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
-    height: 263px;
+    flex-grow: 1;
 
     &-photo {
-      width: 150px;
-
-      @include tablet {
-        width: 175px;
-      }
-
-      @include desktop { 
-        width: 210px;
-      }
+      width: 100%;
     }
   }
 
