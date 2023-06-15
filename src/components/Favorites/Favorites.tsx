@@ -10,6 +10,9 @@ export default function favorites() {
 		<div className="favorites">
 			<div className="favorites__wrapper">
 				<h1>Favorites</h1>
+				<div className="favorites__counter">
+					{favorites.length} items
+				</div>
 				<div className="favorites__cards">
 					{favorites.map((phone) => (
 						<div key={phone.id} className="favorites__card"><Card phone={phone}/></div> 
