@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './newModels.scss';
 import Card from '../../Card/Card';
 import { usePageChanger } from '../../../utils';
@@ -8,11 +8,32 @@ import { useCatalogContext } from '../../CatalogContext';
 export default function NewModels() {
 	const {uniquePhones} = useCatalogContext();
 	const latestPhones = uniquePhones.sort((a, b) => b.year - a.year);
-	const page = usePageChanger(1, latestPhones.length);
-	const { currentCardPag, firstPage, lastPage, startingCard, endingCard, onPageChange } = page;
-	
+	const page = usePageChanger(1, latestPhones.length, 0);
+	const { currentCardPag, firstPage, lastPage, onPageChange, onPosChange, pos } = page;
 
-	const showingCards = latestPhones.slice(startingCard - 1, endingCard);
+
+	const getWidthWindow = useCallback(() => {
+		const { innerWidth: width } = window;
+		return width;
+	}, [latestPhones]);
+
+	const widthCard = getWidthWindow() > 1200
+		? 275
+		: getWidthWindow() > 640
+			? 240
+			: 215;
+
+	const handleBack = () => {
+		onPageChange(currentCardPag - 1);
+		onPosChange(pos - widthCard * 4 - 56 * 4);
+	}; 
+
+	const handleForward = () => {
+		onPageChange(currentCardPag + 1);
+		onPosChange(pos + widthCard * 4 + 56 * 4);
+	};
+
+	const showingCards = latestPhones;
 	return (
 		<section className="new-models">
 			<div className="new-models__header">
@@ -21,7 +42,7 @@ export default function NewModels() {
 					<Link
 						to='prev'
 						className={`new-models__header__buttons-left new-models__header__buttons__button ${firstPage && 'new-models__disabled'}`}
-						onClick={() => onPageChange(currentCardPag - 1)}
+						onClick={handleBack}
 						
 					>
 						<img
@@ -31,7 +52,7 @@ export default function NewModels() {
 					</Link>
 					<Link
 						to='next'
-						onClick={() => onPageChange(currentCardPag + 1)}
+						onClick={handleForward}
 						className={`new-models__header__buttons-right new-models__header__buttons__button ${lastPage && 'new-models__disabled'}`}
 						
 					>
@@ -43,7 +64,10 @@ export default function NewModels() {
 				</div>
 			</div>
 			<div className='new-models__cards'>
-				{showingCards.map(card => <Card key={card.id} phone={card} />)}
+				{showingCards.map(card => <ul key={card.id} style={{
+					width: `${widthCard * 4}px`, transition: 'transform 2000ms',
+					transform: `translateX(-${pos}px)`,
+				}}> <Card key={card.id} phone={card} /> </ul>)}
 			</div>
 		</section>
 	);

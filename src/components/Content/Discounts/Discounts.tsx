@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './discounts.scss';
 import Card from '../../Card/Card';
 import { usePageChanger } from '../../../utils';
@@ -12,11 +12,31 @@ export default function Discounts() {
 	);
 
 	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
-	const page = usePageChanger(1, shuffledPhones.length);
-	const { currentCardPag, firstPage, lastPage, startingCard, endingCard, onPageChange } = page;
-	
+	const page = usePageChanger(1, shuffledPhones.length, 0);
+	const { currentCardPag, firstPage, lastPage, pos, onPosChange, onPageChange } = page;
 
-	const showingCards = shuffledPhones.slice(startingCard - 1, endingCard);
+	const getWidthWindow = useCallback(() => {
+		const { innerWidth: width } = window;
+		return width;
+	}, [shuffledPhones]);
+
+	const widthCard = getWidthWindow() > 1200
+		? 275
+		: getWidthWindow() > 640
+			? 240
+			: 215;
+
+	const handleBack = () => {
+		onPageChange(currentCardPag - 1);
+		onPosChange(pos - widthCard * 4 - 56 * 4);
+	};
+
+	const handleForward = () => {
+		onPageChange(currentCardPag + 1);
+		onPosChange(pos + widthCard * 4 + 56 * 4);
+	};
+
+	const showingCards = shuffledPhones;
 
 	return (
 		<section className="discounts">
@@ -26,13 +46,13 @@ export default function Discounts() {
 					<Link
 						to='prev'
 						className={`new-models__header__buttons-left new-models__header__buttons__button ${firstPage && 'new-models__disabled'}`}
-						onClick={() => onPageChange(currentCardPag - 1)}
+						onClick={handleBack}
 					>
 						<img src={process.env.PUBLIC_URL + '/images/arrow-left.svg'} alt="" className='new-models__header__buttons__button__img' /> 
 					</Link>
 					<Link
 						to='next'
-						onClick={() => onPageChange(currentCardPag + 1)}
+						onClick={handleForward}
 						className={`new-models__header__buttons-right new-models__header__buttons__button ${lastPage && 'new-models__disabled'}`}
 					>	
 						<img src={process.env.PUBLIC_URL + '/images/arrow-right.svg'} alt="" className='new-models__header__buttons__button__img' />
@@ -40,7 +60,10 @@ export default function Discounts() {
 				</div>
 			</div>
 			<div className='discounts__cards'>
-				{showingCards.map(card => <Card key={card.id} phone={card} />)}
+				{showingCards.map(card => <ul key={card.id} style={{
+					width: `${widthCard * 4}px`, transition: 'transform 2000ms',
+					transform: `translateX(-${pos}px)`,
+				}}> <Card key={card.id} phone={card} /> </ul>)}
 			</div>
 		</section>
 	);
