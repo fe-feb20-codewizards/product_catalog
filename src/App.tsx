@@ -7,6 +7,7 @@ import { PhonesPage } from './components/Content/PhonesPage';
 import Content from './components/Content/Content';
 import { NotFoundPage } from './components/NotFoundPage';
 import { Cart } from './components/Cart/Cart';
+import ProductPage from './components/ProductPage/ProductPage';
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<Header />
 			</header>
 			<Routes>
+				<Route path="/:itemId" element={<ProductPage />} />
 				<Route path="/" element={<Content />}>
 					<Route path=':direction' element={<Content />}/>
 				</Route>
