@@ -9,16 +9,24 @@
     margin-bottom: 40px;
   }
   
+  .navigation-header__cotainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   .navigation-header {
     &__list {
   
+
+
       &_left {
         display: flex;
         align-items: center;
         list-style: none;
         justify-content: space-between;
         margin: 0;
+        border-bottom: #E2E6E9 1px solid;
       }
   
       &_right {
@@ -109,7 +117,7 @@
   .navigation-header__link {
     position: relative;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 12px;
     line-height: 11px;
     letter-spacing: 0.04em;
@@ -119,8 +127,7 @@
     text-decoration: none;
     font-family: "Mont Regular";
     border-bottom: #fff solid 2px;
-    padding-bottom: 24px;
-
+    padding-bottom: 22px;
     &__btn {
 
     }
@@ -128,14 +135,14 @@
     &:hover {
       color: #000;
       border-bottom: #000 solid 2px;
-      padding-bottom: 24px;
+      padding-bottom: 22px;
     }
   }
 
   .active {
     color: #000;
     border-bottom: #000 solid 2px;
-    padding-bottom: 24px;
+    padding-bottom: 22px;
   }
 
   .nav-buttons {
@@ -167,6 +174,7 @@
         display: flex;
         align-items: center;
         list-style: none;
+        
       }
   
       &_right {
