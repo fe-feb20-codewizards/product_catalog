@@ -4,11 +4,19 @@ import { getAllPhones } from '../api/phones';
 
 interface ContextCatalog {
     uniquePhones: Phone[];
+    favorites: Phone[];
+    addToFavorites: (phone: Phone) => void;
+    removeFromFavorites: (phone: Phone) => void;
 }
 
 export const CatalogContext = createContext<ContextCatalog>(
 	{
 		uniquePhones: [],
+		favorites: [],
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		addToFavorites: () => {},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		removeFromFavorites: () => {},
 	});
 
 export const CatalogContextProvider = (
@@ -17,6 +25,7 @@ export const CatalogContextProvider = (
         },
 ) => {
 	const [phonesData, setPhonesData] = useState<Phone[]>([]);
+	const [favorites, setFavorites] = useState<Phone[]>([]);
 
 	useEffect(() => {
 		getAllPhones()
@@ -26,6 +35,10 @@ export const CatalogContextProvider = (
 			.catch((error) => {
 				console.error(error.message);
 			});
+		const savedFavorites = localStorage.getItem('favorites');
+		if (savedFavorites) {
+			setFavorites(JSON.parse(savedFavorites));
+		}
 	}, []);
 
 	const getModelName = (name: string) => {
@@ -46,9 +59,30 @@ export const CatalogContextProvider = (
 			.values()
 	);
 
+	const addToFavorites = (phone: Phone) => {
+		setFavorites((prevFavorites) => {
+			const newFavorites = [...prevFavorites, phone];
+			localStorage.setItem('favorites', JSON.stringify(newFavorites));
+			return newFavorites;
+		});
+	};
+
+	const removeFromFavorites = (phone: Phone) => {
+		setFavorites((prevFavorites) => {
+			const newFavorites = prevFavorites.filter(
+				(favoritePhone) => favoritePhone.id !== phone.id
+			);
+			localStorage.setItem('favorites', JSON.stringify(newFavorites));
+			return newFavorites;
+		});
+	};
+
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
+			favorites,
+			addToFavorites,
+			removeFromFavorites,
 		}}
 		>
 			{children}

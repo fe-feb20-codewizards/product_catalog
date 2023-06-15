@@ -1,6 +1,7 @@
 import React from 'react';
 import './card.scss';
 import { Phone } from '../../types/Phone';
+import { useCatalogContext } from '../CatalogContext';
 interface CardProps {
 	phone: Phone;
   }
@@ -15,6 +16,18 @@ export default function Card({ phone }: CardProps) {
 		ram,
 		image
 	} = phone;
+	const { favorites, addToFavorites, removeFromFavorites } = useCatalogContext();
+
+	const isFavorite = favorites.some((favoritePhone) => favoritePhone.id === phone.id);
+
+	const handleFavoriteClick = () => {
+		if (isFavorite) {
+			removeFromFavorites(phone);
+		} else {
+			addToFavorites(phone);
+		}
+	};
+
 	return (
 		<div className="card">
 			<div className="card__container">
@@ -53,10 +66,13 @@ export default function Card({ phone }: CardProps) {
 					<button className="card__buttons-add-to-cart">
 						Add to cart
 					</button>
-					<button className="card__buttons-add-to-favorites">	
+					<button 
+						className="card__buttons-add-to-favorites"
+						onClick={handleFavoriteClick}
+					>	
 						<img
 							className="card__buttons-add-to-favorites-icon"
-							src={process.env.PUBLIC_URL + '/images/heart.svg'}
+							src={process.env.PUBLIC_URL + (isFavorite ? '/images/heart-filled.svg' : '/images/heart.svg')}
 							alt="Add to favorites"
 						/>
 					</button>
