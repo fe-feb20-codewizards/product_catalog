@@ -13,5 +13,5 @@ export default function Button({ page, current, handlePage }: ButtonProps) {
 		: {
 			border: '3px solid green'
 		};
-	return (<button style={style} onClick={()=> handlePage(page)} >{page}</button>);
+	return (<button className="button" style={style} onClick={()=> handlePage(page)} >{page}</button>);
 }

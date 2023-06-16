@@ -1,7 +1,9 @@
-import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React, { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
 import PhoneInCart from '../types/PhoneInCart';
+import { Sorted } from '../types/Sorted';
 
 interface ContextCatalog {
 	uniquePhones: Phone[];
@@ -14,24 +16,28 @@ interface ContextCatalog {
 	addToCart: (phone: Phone) => void;
 	removeFromCart: (phone: string) => void;
 	changeCartItemQuantity: (id: string, value: number) => void;
+	sortedPhones: Phone[],
+	setSort: (sort: Sorted) => void,
+	sort: Sorted | null,
 }
 
 export const CatalogContext = createContext<ContextCatalog>(
 	{
+		sortedPhones: [],
+		setSort: () => { },
+		sort: null,
 		uniquePhones: [],
 		favorites: [],
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		addToFavorites: () => {},
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
+
+		addToFavorites: () => { },
 		removeFromFavorites: () => {},
 		cart: [],
 		cartSum: 0,
 		cartQuantity: 0,
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
+
 		addToCart: () => {},
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
+
 		removeFromCart: () => { },
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		changeCartItemQuantity: () => { },
 	});
 
@@ -45,6 +51,8 @@ export const CatalogContextProvider = (
 	const [cart, setCart] = useState<PhoneInCart[]>([]);
 	const [cartSum, setCartSum] = useState(0);
 	const [cartQuantity, setCartQuantity] = useState(0);
+	const [sort, setSort] = useState<Sorted | null>(null);
+
 
 	useEffect(() => {
 		getAllPhones()
@@ -81,7 +89,24 @@ export const CatalogContextProvider = (
 			)
 		);
 	}, [cart]);
+	
 
+	const sortedPhones = useMemo(() => {
+		let newPhones = phonesData;
+		if (sort) {
+			switch (sort) {
+			case Sorted.Newest: newPhones = newPhones.sort((a, b) => b.year - a.year);
+				break;
+			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
+				break;
+			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
+				break;
+			}
+		}
+
+		return newPhones;
+	}, [phonesData, sort]);
+	
 	const getModelName = (name: string) => {
 		const regex = /^(.+)\s\d+GB/;
 		const match = name.match(regex);
@@ -178,6 +203,9 @@ export const CatalogContextProvider = (
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
+			sortedPhones,
+			setSort,
+			sort,
 			favorites,
 			addToFavorites,
 			removeFromFavorites,

@@ -1,0 +1,79 @@
+@import '../../../styles/utils/utils.scss';
+
+.phones {
+    padding: 16px;
+    margin: 10px 150px;
+
+    @include tablet {
+        padding: 24px;
+    }
+
+    @include desktop {
+        padding: 32px;
+    }
+
+    &__header {
+        align-items: left;
+        margin-bottom: 30px;
+
+        &__title {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    &__sorting {
+        display: flex;
+
+        &-sortby {
+            height: 40px;
+            width: 176px;
+            border: 1px solid #B4BDC4;
+            margin: 0 10px;
+        }
+        &-pages {
+            height: 40px;
+            width: 128px;
+            border: 1px solid #B4BDC4;
+        }
+    }
+
+    &__cards {
+        margin: 15px auto;
+        display: grid;
+
+    }
+
+    &__cards-card {
+        display: flex;
+        gap: 16px;
+        justify-content: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        width: scale($cards-number);
+    }
+
+    &__footer {
+        height: 32px;
+        width: 248px;
+        align-items: center;
+        justify-items: center;
+
+        &__buttons {
+            display: flex;
+            gap: 16px;
+
+
+            &__button {
+                width: 32px;
+                height: 32px;
+                background-color: $color-white;
+                border: 1px solid $color-icons;
+
+                &__img {
+                    margin: 33%
+                }
+            }
+        }
+    }
+}
