@@ -4,6 +4,7 @@ import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
 import PhoneInCart from '../types/PhoneInCart';
 import { Sorted } from '../types/Sorted';
+import { getWidthWindow } from '../utils/getWinodw';
 
 interface ContextCatalog {
 	uniquePhones: Phone[];
@@ -19,6 +20,9 @@ interface ContextCatalog {
 	sortedPhones: Phone[],
 	setSort: (sort: Sorted) => void,
 	sort: Sorted | null,
+	widthCard: number,
+	gap: number,
+	shuffledPhones: Phone[],
 }
 
 export const CatalogContext = createContext<ContextCatalog>(
@@ -28,7 +32,7 @@ export const CatalogContext = createContext<ContextCatalog>(
 		sort: null,
 		uniquePhones: [],
 		favorites: [],
-
+		shuffledPhones: [],
 		addToFavorites: () => { },
 		removeFromFavorites: () => {},
 		cart: [],
@@ -39,6 +43,8 @@ export const CatalogContext = createContext<ContextCatalog>(
 
 		removeFromCart: () => { },
 		changeCartItemQuantity: () => { },
+		widthCard: 0,
+		gap: 0,
 	});
 
 export const CatalogContextProvider = (
@@ -106,7 +112,19 @@ export const CatalogContextProvider = (
 
 		return newPhones;
 	}, [phonesData, sort]);
-	
+
+	const widthCard = getWidthWindow() > 1200
+		? 275
+		: getWidthWindow() > 640
+			? 240
+			: 215;
+
+	const gap = getWidthWindow() > 1200
+		? 56
+		: getWidthWindow() > 640
+			? 48
+			: 40;
+
 	const getModelName = (name: string) => {
 		const regex = /^(.+)\s\d+GB/;
 		const match = name.match(regex);
@@ -200,6 +218,12 @@ export const CatalogContextProvider = (
 		});
 	};
 
+	const discountedPhones = uniquePhones.filter(
+		(phone) => phone.price < phone.fullPrice
+	);
+
+	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
+
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
@@ -215,6 +239,9 @@ export const CatalogContextProvider = (
 			addToCart,
 			removeFromCart,
 			changeCartItemQuantity,
+			widthCard,
+			gap,
+			shuffledPhones,
 		}}
 		>
 			{children}
