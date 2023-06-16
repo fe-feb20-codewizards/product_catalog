@@ -1,6 +1,7 @@
 import { Phone } from '../types/Phone';
+import { PhoneInfo } from '../types/PhoneInfo';
 
-const BASE_URL = 'https://device-shop-wrmh.onrender.com/products';
+const BASE_URL = 'https://pru-vq89.onrender.com';
 
 export interface Props {
   'products': Phone[]
@@ -9,14 +10,15 @@ export interface Props {
 }
 
 export const getAllPhones = async() => {
-	const response = await fetch(BASE_URL);
+	const response = await fetch(BASE_URL + '/products');
 	const data: Promise<Phone[]> = response.json(); 
 
 	return data || [];
 };
 
 export const getPhone = async (itemId: string) => {
-	const allPhones = await getAllPhones();
-	const phone = allPhones.find((phone) => phone.itemId === itemId);
-	return phone || undefined;
+	const response = await fetch(BASE_URL + '/products/' + itemId);
+	const phoneInfo: Promise<PhoneInfo> = response.json(); 
+
+	return phoneInfo || null;
 };
