@@ -12,6 +12,10 @@ export function Cart() {
 		changeCartItemQuantity
 	} = useCatalogContext();
 
+	const handleClearEntireCart = () => {
+		cart.forEach(phone => removeFromCart(phone.id));
+	};
+
 	return (
 		<div className="cart">
 			<h3 className="cart__title">Cart</h3>
@@ -26,7 +30,11 @@ export function Cart() {
 						/>
 					))}
 				</div>
-				<Checkout sum={cartSum} quantity={cartQuantity} />
+				<Checkout
+					sum={cartSum}
+					quantity={cartQuantity}
+					handleClearEntireCart={handleClearEntireCart}
+				/>
 			</div>
 		</div>
 	);
