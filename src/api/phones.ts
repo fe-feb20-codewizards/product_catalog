@@ -14,3 +14,9 @@ export const getAllPhones = async() => {
 
 	return data || [];
 };
+
+export const getPhone = async (itemId: string) => {
+	const allPhones = await getAllPhones();
+	const phone = allPhones.find((phone) => phone.itemId === itemId);
+	return phone || undefined;
+};

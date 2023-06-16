@@ -31,8 +31,31 @@ export function PhonesPage() {
 	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
 
 	const showingCards = sortedPhones.slice(startingCard - 1, endingCard);
-	const activeButton = 3;
 
+	const [activeButton, setActiveButton] = useState(1);
+
+	const maxPages = (sortedPhones.length / perPage);
+
+	const firstButton = activeButton > 3
+		? activeButton - 2
+		: 1;
+	const lastButton = activeButton + 2 > maxPages
+		? maxPages
+		: activeButton + 2;
+
+	const handleButtonPrev = () => {
+		if (activeButton > 1 && currentCardPag > 1) {
+			onPageChange(currentCardPag - 1);
+			setActiveButton(activeButton - 1);
+		}
+	};
+	
+	const handleButtonNext = () => {
+		if (activeButton < maxPages && currentCardPag < maxPages) {
+			onPageChange(currentCardPag + 1);
+			setActiveButton(activeButton + 1);
+		}
+	};
 	return (
 		<div className='phones'>
 			<header className='phones__header header'>
@@ -67,7 +90,9 @@ export function PhonesPage() {
 					</div>
 				</article>
 				<footer className='phones___footer'>
-					{getNumbers(activeButton - 3, activeButton + 3).map(page => <Button key={page} page={page}/>)}
+					<button onClick={handleButtonPrev} className={`${firstPage && 'phones__footer__disabled'}`}>{'<'}</button>
+					{getNumbers(firstButton, lastButton + 1).map(page => <Button key={page} page={page} current={currentCardPag}/>)}
+					<button onClick={handleButtonNext} className={`${lastPage && 'phones__footer__disabled'}`}>{'>'}</button>
 				</footer>
 			</section>
 		</div>

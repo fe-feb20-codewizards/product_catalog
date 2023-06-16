@@ -1,31 +1,43 @@
 @import '../../styles/utils/utils.scss';
 
+.no-underline {
+  text-decoration: none;
+  color: inherit;
+}
+
 .card {
   display: flex;
 
   &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid $color-elements;
     box-sizing: border-box;
     padding: 32px;
-    height: 540px;
+    width: 215px;
+    height: 650px;
+
+    @include tablet {
+      width: 240px;
+      height: 650px;
+    }
+
+    @include desktop { 
+      width: 275px;
+      height: 650px;
+    }
   }
+
 
   &__img {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
-    height: 263px;
+    flex-grow: 1;
 
     &-photo {
-      width: 150px;
-
-      @include tablet {
-        width: 175px;
-      }
-
-      @include desktop { 
-        width: 210px;
-      }
+      width: 100%;
     }
   }
 
