@@ -8,8 +8,10 @@ export default function Welcome() {
 			<div className="welcome__header">
 				<h1>Welcome to Nice Gadgets store!</h1>
 			</div>
-			<div className="welcome__wrapper">
-				<Slider />
+			<div className="welcome__slider">
+				<div className="welcome__wrapper">
+					<Slider />
+				</div>
 			</div>
 		</section>
 	);

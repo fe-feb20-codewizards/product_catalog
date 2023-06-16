@@ -1,52 +1,79 @@
 @import '../../../../styles/utils/utils.scss';
 
 .swiper, .slider {
-	
+	width: 100%;
+	position: static;
+
+	@include tablet {
+		width: 88%;
+	}
+	@include desktop {
+		width: 92%;
+	}
+
 	&-slide {
-		width: 100%;
-		padding-bottom: 100%;
 		background-image: url(../../../../../public/images/banner1-min.png);
 		background-repeat: no-repeat;
 		background-size: contain;
+		min-width: 100%;
+		aspect-ratio : 1 / 1;
 
 		@include tablet { 
-			background-image: url(../../../../../public/images/banner1-full.png);
-			background-size: contain;
-			height: 10%;
-			width: 80%;
-			padding-bottom: 35%;
+			display: flex;
+			justify-content: center;
+			min-height: 0;
+			aspect-ratio: auto;
+		}
+
+		& img {
+			width: 100%;
+			display: none;
+
+			@include tablet { 
+				display: block;
+				
+			}
 		}
 	}
 
-	// &-button-prev, &-button-next {
-	// 	position: absolute;
-	// 	top: 0;
-	// 	margin-top: 0px;
-	// 	display: flex;
-	// 	align-items: center;
-	// 	min-height: 100%;
-	// 	border: 2px solid green;
-		
-	// 	&::after{
-	// 		display: none;
-	// position: fixed;
-	// 		width: 32px;
-	// 		border: 1px solid #89939a;
-	// 		font-size: 14px;
-	// 		color: red;
-	// 		text-align: center;
-			
-	// 		@include tablet {
-	// 			display: flex;
-	// 			min-height: 100px;
-	// 		}
-	// 	}
-	// }
+	&-button-prev, &-button-next {
+		display: none;
+		align-items: center;
+		border: 1px solid $color-icons;
+		height: calc(100% - 2px);
+		top: 22px;
 
-	// &-button-prev {
-	// 	left: 0;
-	// }
-	// &-button-next {
-	// 	right: var(--swiper-navigation-sides-offset,0px);
-	// }
+		@include tablet {
+			display: flex;
+		}
+
+		&::after{
+			display: flex;
+			color: $color-primary;
+			font-size: 14px;
+		}
+	}
+
+	&-button-prev {
+		left: var(--swiper-navigation-sides-offset,0px);
+	}
+	&-button-next {
+		right: var(--swiper-navigation-sides-offset,0px);
+	}
+}
+
+.swiper-pagination {
+	top: 0;
+	bottom: -30px !important;
+
+	&-bullet {
+		background-color: $color-secondary;
+		border-radius: 0;
+		width: 15px;
+		height: 5px;
+
+		&-active {
+			background-color: $color-primary;
+		}
+	}
 }
