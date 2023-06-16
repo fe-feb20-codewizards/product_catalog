@@ -3,17 +3,26 @@ import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
 
 interface ContextCatalog {
-	uniquePhones: Phone[];
-	cart: Phone[];
-	addToCart: (phone: Phone) => void;
+    uniquePhones: Phone[];
+    favorites: Phone[];
+    addToFavorites: (phone: Phone) => void;
+    removeFromFavorites: (phone: Phone) => void;
+		cart: Phone[];
+		addToCart: (phone: Phone) => void;
 }
 
-export const CatalogContext = createContext<ContextCatalog>({
-	uniquePhones: [],
-	cart: [],
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	addToCart: () => {},
-});
+export const CatalogContext = createContext<ContextCatalog>(
+	{
+		uniquePhones: [],
+		favorites: [],
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		addToFavorites: () => {},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		removeFromFavorites: () => {},
+		cart: [],
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		addToCart: () => {},
+	});
 
 export const CatalogContextProvider = (
 	{ children }: {
@@ -21,6 +30,7 @@ export const CatalogContextProvider = (
         },
 ) => {
 	const [phonesData, setPhonesData] = useState<Phone[]>([]);
+	const [favorites, setFavorites] = useState<Phone[]>([]);
 	const [cart, setCart] = useState<Phone[]>([]);
 
 	useEffect(() => {
@@ -31,6 +41,10 @@ export const CatalogContextProvider = (
 			.catch((error) => {
 				console.error(error.message);
 			});
+		const savedFavorites = localStorage.getItem('favorites');
+		if (savedFavorites) {
+			setFavorites(JSON.parse(savedFavorites));
+		}
 		const savedCart = localStorage.getItem('cart');
 		if (savedCart) {
 			setCart(JSON.parse(savedCart));
@@ -55,6 +69,24 @@ export const CatalogContextProvider = (
 			.values()
 	);
 
+	const addToFavorites = (phone: Phone) => {
+		setFavorites((prevFavorites) => {
+			const newFavorites = [...prevFavorites, phone];
+			localStorage.setItem('favorites', JSON.stringify(newFavorites));
+			return newFavorites;
+		});
+	};
+
+	const removeFromFavorites = (phone: Phone) => {
+		setFavorites((prevFavorites) => {
+			const newFavorites = prevFavorites.filter(
+				(favoritePhone) => favoritePhone.id !== phone.id
+			);
+			localStorage.setItem('favorites', JSON.stringify(newFavorites));
+			return newFavorites;
+		});
+	};
+
 	const addToCart = (phone: Phone) => {
 		setCart((prevCart) => {
 			const newCart = [...prevCart, phone];
@@ -66,6 +98,9 @@ export const CatalogContextProvider = (
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
+			favorites,
+			addToFavorites,
+			removeFromFavorites,
 			cart,
 			addToCart,
 		}}

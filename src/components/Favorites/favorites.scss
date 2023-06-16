@@ -1,0 +1,23 @@
+@import '../../styles/utils/utils.scss';
+
+.favorites {
+
+  &__wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  &__counter {
+    color: $color-secondary;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-column-gap: 16px;
+    grid-row-gap: 40px;
+    justify-items: center;
+  }
+}
