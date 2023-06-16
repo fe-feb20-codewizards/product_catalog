@@ -56,6 +56,12 @@ export function PhonesPage() {
 			setActiveButton(activeButton + 1);
 		}
 	};
+
+	const handlePage = (page: number) => {
+		onPageChange(page);
+		setActiveButton(page);
+	};
+
 	return (
 		<div className='phones'>
 			<header className='phones__header header'>
@@ -91,7 +97,7 @@ export function PhonesPage() {
 				</article>
 				<footer className='phones___footer'>
 					<button onClick={handleButtonPrev} className={`${firstPage && 'phones__footer__disabled'}`}>{'<'}</button>
-					{getNumbers(firstButton, lastButton + 1).map(page => <Button key={page} page={page} current={currentCardPag}/>)}
+					{getNumbers(firstButton, lastButton + 1).map(page => <Button key={page} page={page} current={currentCardPag} handlePage={handlePage}/>)}
 					<button onClick={handleButtonNext} className={`${lastPage && 'phones__footer__disabled'}`}>{'>'}</button>
 				</footer>
 			</section>
