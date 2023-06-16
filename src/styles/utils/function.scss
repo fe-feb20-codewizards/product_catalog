@@ -1,0 +1,4 @@
+@function scale($cards-number) {
+    @return 272 * $cards-number + ($cards-number - 1) * 16 + 30 * 2 * 1px;
+  }
+  
