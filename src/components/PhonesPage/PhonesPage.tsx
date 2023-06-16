@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useCatalogContext } from '../CatalogContext';
 import Card from '../Card/Card';
 
@@ -6,16 +6,21 @@ import { Sorted } from '../../types/Sorted';
 import { getNumbers, usePageChanger } from '../../utils/PageChanger';
 import Button from '../Features/Button';
 import './Phones.scss';
+import { useChangeCatalog } from '../../utils/ChangeCatalog';
 
 export default function PhonesPage() {
 	const { sortedPhones, sort, setSort } = useCatalogContext();
 	const [perPage, setPerPage] = useState(16);
 
-	const handlePerpage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setPerPage(Number(event.target.value));
-	};
+	const pagin = useChangeCatalog(sortedPhones.length, perPage);
+	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
 
-	const handleSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	const handlePerpage = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+		setPerPage(Number(event.target.value));
+	}, [perPage, activeButton, sortedPhones]);
+
+
+	const handleSort = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
 		const choose = event.target.value;
 		switch (choose) {
 		case 'Newest': setSort(Sorted.Newest);
@@ -25,41 +30,31 @@ export default function PhonesPage() {
 		case 'PriceDown': setSort(Sorted.PriceDown);
 			break;
 		}
-	};
+	}, [sort]);
 
 	const page = usePageChanger(1, sortedPhones.length, perPage);
-
 	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
 
 	const showingCards = sortedPhones.slice(startingCard - 1, endingCard);
-
-	const [activeButton, setActiveButton] = useState(1);
-	const maxPages = (sortedPhones.length / perPage);
-	const firstButton = activeButton > 3
-		? activeButton - 2
-		: 1;
-	const lastButton = activeButton + 2 > maxPages
-		? maxPages
-		: activeButton + 2;
-
-	const handleButtonPrev = () => {
+	
+	const handleButtonPrev = useCallback(() => {
 		if (activeButton > 1 && currentCardPag > 1) {
 			onPageChange(currentCardPag - 1);
-			setActiveButton(activeButton - 1);
+			onChanger(activeButton - 1);
 		}
-	};
+	}, [activeButton]);
 
-	const handleButtonNext = () => {
+	const handleButtonNext = useCallback(() => {
 		if (activeButton < maxPages && currentCardPag < maxPages) {
 			onPageChange(currentCardPag + 1);
-			setActiveButton(activeButton + 1);
+			onChanger(activeButton + 1);
 		}
-	};
+	}, [activeButton]);
 
-	const handlePage = (page: number) => {
+	const handlePage = useCallback((page: number) => {
 		onPageChange(page);
-		setActiveButton(page);
-	};
+		onChanger(page);
+	}, [activeButton, perPage]);
 
 	return (
 		<div className='phones'>
@@ -72,7 +67,7 @@ export default function PhonesPage() {
 					<div>
 						<p className='phone__sorting-text'>Sort by</p>
 						<label htmlFor="sort" >
-							<select name="sort" id="sort" value={sort || 'Choose sort'} onChange={handleSort} className='phones__sorting-sortby'>
+							<select name="sort" id="sort" value={sort || 'Choose sort'} onChange={handleSort} className='phones__sorting-sortby' >
 								<option value="Newest">Newest</option>
 								<option value="PriceUp">Price Up</option>
 								<option value="PriceDown">Price Down</option>
@@ -82,7 +77,7 @@ export default function PhonesPage() {
 					<div>
 						<p className='phone__sorting-text'>Items on page</p>
 						< label htmlFor="page" className='phones__sorting-page'>
-							<select name="page" id="page" value={perPage} onChange={handlePerpage} className='phones__sorting-pages'>
+							<select name="page" id="page" value={perPage}onChange={handlePerpage} className='phones__sorting-pages'>
 								<option value="4">4</option>
 								<option value="16">16</option>
 								<option value="20">20</option>
@@ -95,9 +90,15 @@ export default function PhonesPage() {
 					</div>
 				</article>
 				<footer className='phones___footer'>
-					<button onClick={handleButtonPrev} className={`${firstPage && 'phones__footer__disabled'}`}>{'<'}</button>
-					{getNumbers(firstButton, lastButton + 1).map(page => <Button key={page} page={page} current={currentCardPag} handlePage={handlePage} />)}
-					<button onClick={handleButtonNext} className={`${lastPage && 'phones__footer__disabled'}`}>{'>'}</button>
+					<div className='phones__footer-button'>
+						<button onClick={handleButtonPrev} className={`${firstPage && 'phones__footer__disabled'}`}>{'<'}</button>
+						{getNumbers(firstButton, lastButton + 1).map(page => <Button
+							key={page}
+							page={page}
+							current={currentCardPag}
+							handlePage={handlePage} />)}
+						<button onClick={handleButtonNext} className={`${lastPage && 'phones__footer__disabled'}`}>{'>'}</button>
+					</div>
 				</footer>
 			</section>
 		</div>

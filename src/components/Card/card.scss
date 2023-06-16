@@ -16,6 +16,8 @@
     box-sizing: border-box;
     padding: 32px;
     width: 215px;
+    height: 640px;
+    
     @include tablet {
       width: 240px;
     }

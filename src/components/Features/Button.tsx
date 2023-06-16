@@ -8,10 +8,12 @@ interface ButtonProps {
 export default function Button({ page, current, handlePage }: ButtonProps) {
 	const style = page !== current
 		? {
-			border: '3px solid black'
+			border: '1px solid black',
+			color: 'black'
 		}
 		: {
-			border: '3px solid green'
+			border: '1px solid green',
+			color: 'green'
 		};
 	return (<button className="button" style={style} onClick={()=> handlePage(page)} >{page}</button>);
 }

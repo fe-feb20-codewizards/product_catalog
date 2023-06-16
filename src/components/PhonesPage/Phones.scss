@@ -57,24 +57,13 @@
     &__footer {
         height: 32px;
         width: 248px;
-        align-items: center;
-        justify-items: center;
 
-        &__buttons {
-            display: flex;
-            gap: 16px;
-
-
-            &__button {
-                width: 32px;
-                height: 32px;
-                background-color: $color-white;
-                border: 1px solid $color-icons;
-
-                &__img {
-                    margin: 33%
-                }
-            }
+        &-button {
+            align-items: center;
+            text-align: center;
+            margin: auto;
+            gap: 5px;
         }
+
     }
 }
