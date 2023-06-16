@@ -8,7 +8,7 @@ import { useCatalogContext } from '../../CatalogContext';
 export default function NewModels() {
 	const {uniquePhones} = useCatalogContext();
 	const latestPhones = uniquePhones.sort((a, b) => b.year - a.year);
-	const page = usePageChanger(1, latestPhones.length, 4);
+	const page = usePageChanger(1, latestPhones.length);
 	const { currentCardPag, firstPage, lastPage, startingCard, endingCard, onPageChange } = page;
 	
 

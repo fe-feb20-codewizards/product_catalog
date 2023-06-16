@@ -1,15 +1,10 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import React, { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
-import { Sorted } from '../types/Sorted';
 
 interface ContextCatalog {
 	uniquePhones: Phone[];
 	favorites: Phone[];
-	sortedPhones: Phone[];
-	setSort: (sort: Sorted) => void;
-	sort: Sorted | null;
 	addToFavorites: (phone: Phone) => void;
 	removeFromFavorites: (phone: Phone) => void;
 	cart: Phone[];
@@ -20,14 +15,15 @@ interface ContextCatalog {
 export const CatalogContext = createContext<ContextCatalog>(
 	{
 		uniquePhones: [],
-		sortedPhones: [],
-		setSort: () => { },
-		sort: null,
 		favorites: [],
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		addToFavorites: () => {},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		removeFromFavorites: () => {},
 		cart: [],
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		addToCart: () => {},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		removeFromCart: () => { },
 	});
 
@@ -37,7 +33,6 @@ export const CatalogContextProvider = (
         },
 ) => {
 	const [phonesData, setPhonesData] = useState<Phone[]>([]);
-	const [sort, setSort] = useState<Sorted | null>(null);
 	const [favorites, setFavorites] = useState<Phone[]>([]);
 	const [cart, setCart] = useState<Phone[]>([]);
 
@@ -58,22 +53,6 @@ export const CatalogContextProvider = (
 			setCart(JSON.parse(savedCart));
 		}
 	}, []);
-
-	const sortedPhones = useMemo(() => {
-		let newPhones = phonesData;
-		if (sort) {
-			switch (sort) {
-			case Sorted.Newest: newPhones = newPhones.sort((a, b) => b.year - a.year);
-				break;
-			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
-				break;
-			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
-				break;
-			}
-		}
-
-		return newPhones;
-	}, [phonesData, sort]);
 
 	const getModelName = (name: string) => {
 		const regex = /^(.+)\s\d+GB/;
@@ -132,9 +111,6 @@ export const CatalogContextProvider = (
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
-			sortedPhones,
-			setSort,
-			sort,
 			favorites,
 			addToFavorites,
 			removeFromFavorites,
