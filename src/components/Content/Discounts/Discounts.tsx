@@ -1,7 +1,7 @@
 import React from 'react';
 import './discounts.scss';
 import Card from '../../Card/Card';
-import { usePageChanger } from '../../../utils';
+import { usePageChanger } from '../../../utils/PageChanger';
 import { Link } from 'react-router-dom';
 import { useCatalogContext } from '../../CatalogContext';
 

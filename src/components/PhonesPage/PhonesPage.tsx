@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useCatalogContext } from '../../CatalogContext';
-import Card from '../../Card/Card';
-import './PhonesPage.scss';
-import { Sorted } from '../../../types/Sorted';
-import { getNumbers, usePageChanger } from '../../../utils';
-import Button from '../Features/Button';
+import { useCatalogContext } from '../CatalogContext';
+import Card from '../Card/Card';
 
-export function PhonesPage() {
+import { Sorted } from '../../types/Sorted';
+import { getNumbers, usePageChanger } from '../../utils/PageChanger';
+import Button from '../Features/Button';
+import './Phones.scss';
+
+export default function PhonesPage() {
 	const { sortedPhones, sort, setSort } = useCatalogContext();
 	const [perPage, setPerPage] = useState(16);
 
@@ -33,9 +34,7 @@ export function PhonesPage() {
 	const showingCards = sortedPhones.slice(startingCard - 1, endingCard);
 
 	const [activeButton, setActiveButton] = useState(1);
-
 	const maxPages = (sortedPhones.length / perPage);
-
 	const firstButton = activeButton > 3
 		? activeButton - 2
 		: 1;
@@ -49,7 +48,7 @@ export function PhonesPage() {
 			setActiveButton(activeButton - 1);
 		}
 	};
-	
+
 	const handleButtonNext = () => {
 		if (activeButton < maxPages && currentCardPag < maxPages) {
 			onPageChange(currentCardPag + 1);
@@ -97,7 +96,7 @@ export function PhonesPage() {
 				</article>
 				<footer className='phones___footer'>
 					<button onClick={handleButtonPrev} className={`${firstPage && 'phones__footer__disabled'}`}>{'<'}</button>
-					{getNumbers(firstButton, lastButton + 1).map(page => <Button key={page} page={page} current={currentCardPag} handlePage={handlePage}/>)}
+					{getNumbers(firstButton, lastButton + 1).map(page => <Button key={page} page={page} current={currentCardPag} handlePage={handlePage} />)}
 					<button onClick={handleButtonNext} className={`${lastPage && 'phones__footer__disabled'}`}>{'>'}</button>
 				</footer>
 			</section>

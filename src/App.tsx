@@ -3,7 +3,7 @@ import './styles/App.scss';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
-import { PhonesPage } from './components/Content/PhonesPage';
+import PhonesPage  from './components/PhonesPage/PhonesPage';
 import Content from './components/Content/Content';
 import { NotFoundPage } from './components/NotFoundPage';
 import { Cart } from './components/Cart/Cart';
