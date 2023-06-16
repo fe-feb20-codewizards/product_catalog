@@ -3,12 +3,13 @@ import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
 
 interface ContextCatalog {
-    uniquePhones: Phone[];
-    favorites: Phone[];
-    addToFavorites: (phone: Phone) => void;
-    removeFromFavorites: (phone: Phone) => void;
-		cart: Phone[];
-		addToCart: (phone: Phone) => void;
+	uniquePhones: Phone[];
+	favorites: Phone[];
+	addToFavorites: (phone: Phone) => void;
+	removeFromFavorites: (phone: Phone) => void;
+	cart: Phone[];
+	addToCart: (phone: Phone) => void;
+	removeFromCart: (phone: Phone) => void;
 }
 
 export const CatalogContext = createContext<ContextCatalog>(
@@ -22,6 +23,8 @@ export const CatalogContext = createContext<ContextCatalog>(
 		cart: [],
 		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		addToCart: () => {},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		removeFromCart: () => { },
 	});
 
 export const CatalogContextProvider = (
@@ -95,6 +98,16 @@ export const CatalogContextProvider = (
 		});
 	};
 
+	const removeFromCart = (phone: Phone) => {
+		setCart((prevCart) => {
+			const newCart = prevCart.filter(
+				(cartPhone) => cartPhone.id !== phone.id
+			);
+			localStorage.setItem('cart', JSON.stringify(newCart));
+			return newCart;
+		});
+	};
+
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
@@ -103,6 +116,7 @@ export const CatalogContextProvider = (
 			removeFromFavorites,
 			cart,
 			addToCart,
+			removeFromCart,
 		}}
 		>
 			{children}
