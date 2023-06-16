@@ -53,9 +53,20 @@
 
   &__image-section {
     flex: 1;
+    display: flex;
 
     &-photo {
       width: 70%;
+    }
+
+    &-thumbnails {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &-thumbnail {
+        width: 50%;
+      }
     }
   }
 

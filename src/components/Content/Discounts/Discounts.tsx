@@ -12,7 +12,7 @@ export default function Discounts() {
 	);
 
 	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
-	const page = usePageChanger(1, shuffledPhones.length, 4);
+	const page = usePageChanger(1, shuffledPhones.length);
 	const { currentCardPag, firstPage, lastPage, startingCard, endingCard, onPageChange } = page;
 	
 

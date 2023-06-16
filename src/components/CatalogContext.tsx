@@ -1,34 +1,38 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import React, { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
-import { Sorted } from '../types/Sorted';
+import PhoneInCart from '../types/PhoneInCart';
 
 interface ContextCatalog {
 	uniquePhones: Phone[];
 	favorites: Phone[];
-	sortedPhones: Phone[];
-	setSort: (sort: Sorted) => void;
-	sort: Sorted | null;
 	addToFavorites: (phone: Phone) => void;
 	removeFromFavorites: (phone: Phone) => void;
-	cart: Phone[];
+	cart: PhoneInCart[];
+	cartSum: number;
+	cartQuantity: number;
 	addToCart: (phone: Phone) => void;
-	removeFromCart: (phone: Phone) => void;
+	removeFromCart: (phone: string) => void;
+	changeCartItemQuantity: (id: string, value: number) => void;
 }
 
 export const CatalogContext = createContext<ContextCatalog>(
 	{
 		uniquePhones: [],
-		sortedPhones: [],
-		setSort: () => { },
-		sort: null,
 		favorites: [],
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		addToFavorites: () => {},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		removeFromFavorites: () => {},
 		cart: [],
+		cartSum: 0,
+		cartQuantity: 0,
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		addToCart: () => {},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		removeFromCart: () => { },
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		changeCartItemQuantity: () => { },
 	});
 
 export const CatalogContextProvider = (
@@ -37,9 +41,10 @@ export const CatalogContextProvider = (
         },
 ) => {
 	const [phonesData, setPhonesData] = useState<Phone[]>([]);
-	const [sort, setSort] = useState<Sorted | null>(null);
 	const [favorites, setFavorites] = useState<Phone[]>([]);
-	const [cart, setCart] = useState<Phone[]>([]);
+	const [cart, setCart] = useState<PhoneInCart[]>([]);
+	const [cartSum, setCartSum] = useState(0);
+	const [cartQuantity, setCartQuantity] = useState(0);
 
 	useEffect(() => {
 		getAllPhones()
@@ -59,21 +64,23 @@ export const CatalogContextProvider = (
 		}
 	}, []);
 
-	const sortedPhones = useMemo(() => {
-		let newPhones = phonesData;
-		if (sort) {
-			switch (sort) {
-			case Sorted.Newest: newPhones = newPhones.sort((a, b) => b.year - a.year);
-				break;
-			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
-				break;
-			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
-				break;
-			}
-		}
+	useEffect(() => {
+		//oblicza sume koszyka
+		setCartSum(
+			cart.reduce(
+				(sum, phone) => sum + phone.price * phone.quantity,
+				0
+			)
+		);
 
-		return newPhones;
-	}, [phonesData, sort]);
+		//ustawia zbiorową ilość SZTUK w koszyku
+		setCartQuantity(
+			cart.reduce(
+				(sum, phone) => sum + phone.quantity,
+				0
+			)
+		);
+	}, [cart]);
 
 	const getModelName = (name: string) => {
 		const regex = /^(.+)\s\d+GB/;
@@ -112,18 +119,57 @@ export const CatalogContextProvider = (
 	};
 
 	const addToCart = (phone: Phone) => {
+		const isInCart = cart.find(item => item.id === phone.id);
+
+		if (!isInCart) {
+			setCart((prevCart) => {
+				const newCart = [
+					...prevCart,
+					{
+						...phone,
+						quantity: 1,
+					}
+				];
+				localStorage.setItem('cart', JSON.stringify(newCart));
+				return newCart;
+			});
+		}
+	};
+
+	const removeFromCart = (phone: string) => {
 		setCart((prevCart) => {
-			const newCart = [...prevCart, phone];
+			const newCart = prevCart.filter(
+				(cartPhone) => cartPhone.id !== phone
+			);
 			localStorage.setItem('cart', JSON.stringify(newCart));
 			return newCart;
 		});
 	};
 
-	const removeFromCart = (phone: Phone) => {
+	const changeCartItemQuantity = (id: string, value: number) => {
+		const current = cart.find(phone => phone.id === id);
+
 		setCart((prevCart) => {
-			const newCart = prevCart.filter(
-				(cartPhone) => cartPhone.id !== phone.id
-			);
+			let newCart = [];
+
+			//jesli sztuki itemu = 1 i jest to operacja odejmowania to go usuwa całkowicie
+			if (current?.quantity === 1 && value === -1) {
+				newCart = prevCart.filter(
+					(cartPhone) => cartPhone.id !== id
+				);
+			} else { //a jak mamy więcej sztuk, to dodaje value
+				newCart = prevCart.map((phone) => {
+					if (phone.id === id) {
+						return {
+							...phone,
+							quantity: phone.quantity + value,
+						};
+					}
+
+					return phone;
+				});
+			}
+
 			localStorage.setItem('cart', JSON.stringify(newCart));
 			return newCart;
 		});
@@ -132,15 +178,15 @@ export const CatalogContextProvider = (
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
-			sortedPhones,
-			setSort,
-			sort,
 			favorites,
 			addToFavorites,
 			removeFromFavorites,
 			cart,
+			cartSum,
+			cartQuantity,
 			addToCart,
 			removeFromCart,
+			changeCartItemQuantity,
 		}}
 		>
 			{children}
