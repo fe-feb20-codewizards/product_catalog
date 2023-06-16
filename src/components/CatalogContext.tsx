@@ -26,24 +26,6 @@ export const CatalogContextProvider = (
 ) => {
 	const [phonesData, setPhonesData] = useState<Phone[]>([]);
 	const [sort, setSort] = useState<Sorted | null>(null);
-	// const [perPage, setPerPage] = useState(16);
-	// const handlePerpage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-	// 	setPerPage(Number(event.target.value));
-	// };
-
-	// const handleSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
-	// 	const choose = event.target.value;
-	// 	switch (choose) {
-	// 	case 'Newest': setSort(Sorted.Newest);
-	// 		break;
-	// 	case 'PriceUp': setSort(Sorted.PriceUp);
-	// 		break;
-	// 	case 'PriceDown': setSort(Sorted.PriceDown);
-	// 		break;
-	// 	default: setSort(null);
-	// 		break;
-	// 	}
-	// };
 
 	useEffect(() => {
 		getAllPhones()

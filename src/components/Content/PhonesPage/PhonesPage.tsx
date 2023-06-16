@@ -31,6 +31,7 @@ export function PhonesPage() {
 	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
 
 	const showingCards = sortedPhones.slice(startingCard - 1, endingCard);
+	const activeButton = 3;
 
 	return (
 		<div className='phones'>
@@ -66,7 +67,7 @@ export function PhonesPage() {
 					</div>
 				</article>
 				<footer className='phones___footer'>
-					{getNumbers(1, showingCards.length / perPage).map(page => <Button key={page} page={page}/>)}
+					{getNumbers(activeButton - 3, activeButton + 3).map(page => <Button key={page} page={page}/>)}
 				</footer>
 			</section>
 		</div>
