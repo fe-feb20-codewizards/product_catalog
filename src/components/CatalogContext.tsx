@@ -3,13 +3,17 @@ import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
 
 interface ContextCatalog {
-    uniquePhones: Phone[];
+	uniquePhones: Phone[];
+	cart: Phone[];
+	addToCart: (phone: Phone) => void;
 }
 
-export const CatalogContext = createContext<ContextCatalog>(
-	{
-		uniquePhones: [],
-	});
+export const CatalogContext = createContext<ContextCatalog>({
+	uniquePhones: [],
+	cart: [],
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	addToCart: () => {},
+});
 
 export const CatalogContextProvider = (
 	{ children }: {
@@ -17,6 +21,7 @@ export const CatalogContextProvider = (
         },
 ) => {
 	const [phonesData, setPhonesData] = useState<Phone[]>([]);
+	const [cart, setCart] = useState<Phone[]>([]);
 
 	useEffect(() => {
 		getAllPhones()
@@ -26,6 +31,10 @@ export const CatalogContextProvider = (
 			.catch((error) => {
 				console.error(error.message);
 			});
+		const savedCart = localStorage.getItem('cart');
+		if (savedCart) {
+			setCart(JSON.parse(savedCart));
+		}
 	}, []);
 
 	const getModelName = (name: string) => {
@@ -46,9 +55,19 @@ export const CatalogContextProvider = (
 			.values()
 	);
 
+	const addToCart = (phone: Phone) => {
+		setCart((prevCart) => {
+			const newCart = [...prevCart, phone];
+			localStorage.setItem('cart', JSON.stringify(newCart));
+			return newCart;
+		});
+	};
+
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
+			cart,
+			addToCart,
 		}}
 		>
 			{children}

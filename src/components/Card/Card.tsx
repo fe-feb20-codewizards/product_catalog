@@ -1,6 +1,7 @@
 import React from 'react';
 import './card.scss';
 import { Phone } from '../../types/Phone';
+import { useCatalogContext } from '../CatalogContext';
 interface CardProps {
 	phone: Phone;
   }
@@ -15,6 +16,7 @@ export default function Card({ phone }: CardProps) {
 		ram,
 		image
 	} = phone;
+	const { addToCart } = useCatalogContext();
 	return (
 		<div className="card">
 			<div className="card__container">
@@ -51,7 +53,10 @@ export default function Card({ phone }: CardProps) {
 					</ul>
 
 					<div className="card__buttons">
-						<button className="card__buttons-add-to-cart">
+						<button 
+							className="card__buttons-add-to-cart"
+							onClick={() => addToCart(phone)}
+						>
 							Add to cart
 						</button>
 						<button className="card__buttons-add-to-favorites">	
