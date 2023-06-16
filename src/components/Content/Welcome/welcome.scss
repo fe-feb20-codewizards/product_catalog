@@ -1,37 +1,20 @@
 @import '../../../styles/utils/utils.scss';
 
 .welcome {
+  @include tablet { 
+    padding: 24px;
+  }
+  @include desktop { 
+    padding: 32px;
+  }
+  
   &__header {
     padding: 16px;
-    @include tablet { 
-      padding: 24px;
-    }
-    @include desktop { 
-      padding: 32px;
-    }
   }
 
   &__wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
-  }
-
-  &__banner {
-    width: 100%;
-    padding-bottom: 100%;
-    background-image: url(../../../../public/images/banner2.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: block;
-    background-position: center;
-
-    @include tablet { 
-      background-image: url(../../../../public/images/banner1.png);
-      background-size: contain;
-      height: 10%;
-      width: 80%;
-      padding-bottom: 35%;
-    }
   }
 }

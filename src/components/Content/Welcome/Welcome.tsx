@@ -1,5 +1,6 @@
 import React from 'react';
 import './welcome.scss';
+import Slider from './Slider/Slider';
 
 export default function Welcome() {
 	return (
@@ -8,7 +9,7 @@ export default function Welcome() {
 				<h1>Welcome to Nice Gadgets store!</h1>
 			</div>
 			<div className="welcome__wrapper">
-				<div className="welcome__banner"></div>
+				<Slider />
 			</div>
 		</section>
 	);
