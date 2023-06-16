@@ -2,6 +2,7 @@ import React from 'react';
 import './card.scss';
 import { Phone } from '../../types/Phone';
 import { Link } from 'react-router-dom';
+import { useCatalogContext } from '../CatalogContext';
 interface CardProps {
 	phone: Phone;
   }
@@ -17,6 +18,18 @@ export default function Card({ phone }: CardProps) {
 		ram,
 		image
 	} = phone;
+	const { addToCart, favorites, addToFavorites, removeFromFavorites } = useCatalogContext();
+
+	const isFavorite = favorites.some((favoritePhone) => favoritePhone.id === phone.id);
+
+	const handleFavoriteClick = () => {
+		if (isFavorite) {
+			removeFromFavorites(phone);
+		} else {
+			addToFavorites(phone);
+		}
+	};
+
 	return (
 		<Link className="no-underline" to={`/item/${itemId}`}>
 			<div className="card">
@@ -29,40 +42,48 @@ export default function Card({ phone }: CardProps) {
 						>
 						</img>
 					</div>
-					<div className="card__title">
-						{name}
-					</div>
-					<div className="card__price">
-						{price !== fullPrice && <h4 className="card__price-head">{price}</h4>}
-						<h4 className="card__price-discounted">{fullPrice}</h4>
-					</div>
-
-					<div className="card__divider"></div>
-
-					<ul className="card__info">
-						<div className="card__info-left">
-							<li>{screen}</li>
-							<li>{capacity}</li>
-							<li>{ram}</li>
+					<div className="card__wrapper">
+						<div className="card__title">
+							{name}
 						</div>
-						<div className="card__info-right">
-							<li>Screen Info</li>
-							<li>Capacity Info</li>
-							<li>RAM Info</li>
+						<div className="card__price">
+							{price !== fullPrice && <h4 className="card__price-head">{price}</h4>}
+							<h4 className="card__price-discounted">{fullPrice}</h4>
 						</div>
-					</ul>
 
-					<div className="card__buttons">
-						<button className="card__buttons-add-to-cart">
-							Add to cart
-						</button>
-						<button className="card__buttons-add-to-favorites">	
-							<img
-								className="card__buttons-add-to-favorites-icon"
-								src={process.env.PUBLIC_URL + '/images/heart.svg'}
-								alt="Add to favorites"
-							/>
-						</button>
+						<div className="card__divider"></div>
+
+						<ul className="card__info">
+							<div className="card__info-left">
+								<li>Screen</li>
+								<li>Capacity</li>
+								<li>RAM</li>
+							</div>
+							<div className="card__info-right">
+								<li>{screen}</li>
+								<li>{capacity}</li>
+								<li>{ram}</li>
+							</div>
+						</ul>
+
+						<div className="card__buttons">
+							<button 
+								className="card__buttons-add-to-cart"
+								onClick={() => addToCart(phone)}
+							>
+								Add to cart
+							</button>
+							<button 
+								className="card__buttons-add-to-favorites"
+								onClick={handleFavoriteClick}
+							>	
+								<img
+									className="card__buttons-add-to-favorites-icon"
+									src={process.env.PUBLIC_URL + (isFavorite ? '/images/heart-filled.svg' : '/images/heart.svg')}
+									alt="Add to favorites"
+								/>
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
