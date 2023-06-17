@@ -108,7 +108,9 @@ export const CatalogContextProvider = (
 				break;
 			case Sorted.Oldest: newPhones = newPhones.sort((a, b) => a.year - b.year);
 				break;
-			default: newPhones = phonesData;
+			case Sorted.NoSort: newPhones = newPhones.sort((a, b) => a.itemId.localeCompare(b.itemId));
+				break;
+			default: newPhones;
 				break;
 			}
 		}

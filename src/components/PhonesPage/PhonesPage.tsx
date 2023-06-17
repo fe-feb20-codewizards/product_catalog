@@ -41,6 +41,8 @@ export default function PhonesPage() {
 			break;
 		case 'PriceDown': setSort(Sorted.PriceDown);
 			break;
+		case 'NoSort': setSort(Sorted.NoSort);
+			break;
 		default: setSort(null);
 			break;
 		}

@@ -3,4 +3,5 @@ export const enum Sorted {
     PriceUp = 'PriceUp',
     PriceDown= 'PriceDown',
     Oldest = 'Oldest',
+    NoSort = 'NoSort',
 }
