@@ -17,6 +17,10 @@
     padding: 32px;
     width: 215px;
     height: 640px;
+
+    &:hover {
+      opacity: 0.8;
+    }
     
     @include tablet {
       width: 240px;

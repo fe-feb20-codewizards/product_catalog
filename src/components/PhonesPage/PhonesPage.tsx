@@ -7,6 +7,7 @@ import { getNumbers, usePageChanger } from '../../utils/PageChanger';
 import Button from '../Features/Button';
 import './Phones.scss';
 import { useChangeCatalog } from '../../utils/ChangeCatalog';
+import { Link } from 'react-router-dom';
 
 export default function PhonesPage() {
 	const { sortedPhones, sort, setSort } = useCatalogContext();
@@ -73,6 +74,13 @@ export default function PhonesPage() {
 
 	return (
 		<div className='phones'>
+			<div>
+				<Link to="/" className="phones__link">
+					<img src={process.env.PUBLIC_URL + '/images/Home.jpg'} alt="" className='phones__home'/>
+				</Link>
+				{'    >    '} 
+				<Link to="/phones" className="phones__link" >Phones</Link>
+			</div>
 			<header className='phones__header header'>
 				<h1 className='header__title'>Mobile phones</h1>
 				<p className='header__title-text'>95 models</p>
