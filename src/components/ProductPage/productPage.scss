@@ -29,30 +29,31 @@
   
   &__top-section {
     width: 100%;
+    display: flex;
+      flex-direction: column;
+    
+      @include tablet {
+        gap: 65px;
     display: grid;
-    // justify-content: space-between;
-    // flex-direction: column;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 1fr;
     height: 100vh;
-
-    @include tablet {
-      gap: 65px;
-      // flex-direction: row;
-      grid-template-rows: auto;
     }
   }
 
   &__bottom-section {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
+    
     @include tablet {
       gap: 65px;
+      display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
     }
     @include desktop {
-      flex-direction: row;
+      // flex-direction: row;
     }
   }
 
