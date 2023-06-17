@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Checkout.scss';
 
 interface Props {
@@ -9,13 +10,15 @@ interface Props {
 
 export function Checkout({ sum, quantity, handleClearEntireCart }: Props) {
 	const [showConfirmation, setShowConfirmation] = useState(false);
+	const navigate = useNavigate();
 
 	const handleCheckout = () => {
 		handleClearEntireCart();
 
 		setShowConfirmation(true);
 		setTimeout(() => {
-			window.location.href = '/';
+			// window.location.href = '/';
+			navigate('/');
 		}, 5000);
 	};
 
@@ -36,7 +39,7 @@ export function Checkout({ sum, quantity, handleClearEntireCart }: Props) {
 							Thank you for your order.
 						</p>
 						<p className="checkout__success-message">
-							Redirecting you to the <a href="/">homepage </a> in 5 seconds...
+							Redirecting you to the <Link to="/">homepage </Link> in 5 seconds...
 						</p>
 					</div>
 				)}
