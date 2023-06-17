@@ -3,7 +3,7 @@ import './categories.scss';
 import { useCatalogContext } from '../../CatalogContext';
 
 export default function Categories() {
-	const { uniquePhones } = useCatalogContext();
+	const { phonesData } = useCatalogContext();
 	return (
 		<section className="categories">
 			<h2>Shop by category</h2>
@@ -18,7 +18,7 @@ export default function Categories() {
 						Phones
 					</h3>
 					<div className="categories__blocks__block-count">
-						{uniquePhones.length} models
+						{phonesData.length} models
 					</div>
 				</div>
 				<div className="categories__blocks-tablets categories__blocks__block">

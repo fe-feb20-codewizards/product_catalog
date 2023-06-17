@@ -17,7 +17,6 @@ export function Checkout({ sum, quantity, handleClearEntireCart }: Props) {
 
 		setShowConfirmation(true);
 		setTimeout(() => {
-			// window.location.href = '/';
 			navigate('/');
 		}, 5000);
 	};

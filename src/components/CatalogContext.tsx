@@ -23,6 +23,7 @@ interface ContextCatalog {
 	widthCard: number,
 	gap: number,
 	shuffledPhones: Phone[],
+	phonesData: Phone[],
 }
 
 export const CatalogContext = createContext<ContextCatalog>(
@@ -38,7 +39,7 @@ export const CatalogContext = createContext<ContextCatalog>(
 		cart: [],
 		cartSum: 0,
 		cartQuantity: 0,
-
+		phonesData: [],
 		addToCart: () => {},
 
 		removeFromCart: () => { },
@@ -79,7 +80,6 @@ export const CatalogContextProvider = (
 	}, []);
 
 	useEffect(() => {
-		//oblicza sume koszyka
 		setCartSum(
 			cart.reduce(
 				(sum, phone) => sum + phone.price * phone.quantity,
@@ -87,7 +87,6 @@ export const CatalogContextProvider = (
 			)
 		);
 
-		//ustawia zbiorową ilość SZTUK w koszyku
 		setCartQuantity(
 			cart.reduce(
 				(sum, phone) => sum + phone.quantity,
@@ -195,12 +194,11 @@ export const CatalogContextProvider = (
 		setCart((prevCart) => {
 			let newCart = [];
 
-			//jesli sztuki itemu = 1 i jest to operacja odejmowania to go usuwa całkowicie
 			if (current?.quantity === 1 && value === -1) {
 				newCart = prevCart.filter(
 					(cartPhone) => cartPhone.id !== id
 				);
-			} else { //a jak mamy więcej sztuk, to dodaje value
+			} else { 
 				newCart = prevCart.map((phone) => {
 					if (phone.id === id) {
 						return {
@@ -233,6 +231,7 @@ export const CatalogContextProvider = (
 			favorites,
 			addToFavorites,
 			removeFromFavorites,
+			phonesData,
 			cart,
 			cartSum,
 			cartQuantity,
