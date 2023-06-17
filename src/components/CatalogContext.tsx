@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
 import PhoneInCart from '../types/PhoneInCart';
@@ -130,11 +130,11 @@ export const CatalogContextProvider = (
 			? 48
 			: 40;
 
-	const getModelName = (name: string) => {
+	const getModelName = useCallback((name: string) => {
 		const regex = /^(.+)\s\d+GB/;
 		const match = name.match(regex);
 		return match ? match[1] : name;
-	};
+	}, [phonesData, sort, cart]);
 
 	const uniquePhones = Array.from(
 		phonesData
@@ -148,15 +148,15 @@ export const CatalogContextProvider = (
 			.values()
 	);
 
-	const addToFavorites = (phone: Phone) => {
+	const addToFavorites = useCallback((phone: Phone) => {
 		setFavorites((prevFavorites) => {
 			const newFavorites = [...prevFavorites, phone];
 			localStorage.setItem('favorites', JSON.stringify(newFavorites));
 			return newFavorites;
 		});
-	};
+	},[favorites]);
 
-	const removeFromFavorites = (phone: Phone) => {
+	const removeFromFavorites = useCallback((phone: Phone) => {
 		setFavorites((prevFavorites) => {
 			const newFavorites = prevFavorites.filter(
 				(favoritePhone) => favoritePhone.id !== phone.id
@@ -164,9 +164,9 @@ export const CatalogContextProvider = (
 			localStorage.setItem('favorites', JSON.stringify(newFavorites));
 			return newFavorites;
 		});
-	};
+	},[favorites]);
 
-	const addToCart = (phone: Phone) => {
+	const addToCart = useCallback((phone: Phone) => {
 		const isInCart = cart.find(item => item.id === phone.id);
 
 		if (!isInCart) {
@@ -182,9 +182,9 @@ export const CatalogContextProvider = (
 				return newCart;
 			});
 		}
-	};
+	},[cart]);
 
-	const removeFromCart = (phone: string) => {
+	const removeFromCart = useCallback((phone: string) => {
 		setCart((prevCart) => {
 			const newCart = prevCart.filter(
 				(cartPhone) => cartPhone.id !== phone
@@ -192,9 +192,9 @@ export const CatalogContextProvider = (
 			localStorage.setItem('cart', JSON.stringify(newCart));
 			return newCart;
 		});
-	};
+	},[cart]);
 
-	const changeCartItemQuantity = (id: string, value: number) => {
+	const changeCartItemQuantity = useCallback((id: string, value: number) => {
 		const current = cart.find(phone => phone.id === id);
 
 		setCart((prevCart) => {
@@ -220,11 +220,11 @@ export const CatalogContextProvider = (
 			localStorage.setItem('cart', JSON.stringify(newCart));
 			return newCart;
 		});
-	};
+	},[cart]);
 
-	const discountedPhones = uniquePhones.filter(
+	const discountedPhones = useMemo(() => uniquePhones.filter(
 		(phone) => phone.price < phone.fullPrice
-	);
+	),[phonesData]);
 
 	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
 
