@@ -17,15 +17,20 @@ export default function Slider() {
 			slidesPerView={1}
 			pagination={{ clickable: true }}
 			navigation
+			loop={true}
 			autoplay={{ delay: 2500 }}
 			onSlideChange={() => console.log('slide change')}
 			onSwiper={(swiper) => console.log(swiper)}
 		>
-			<SwiperSlide>Slide 1</SwiperSlide>
-			<SwiperSlide>Slide 2</SwiperSlide>
-			<SwiperSlide>Slide 3</SwiperSlide>
-			<SwiperSlide>Slide 4</SwiperSlide>
-			...
+			<SwiperSlide>
+				<img src={process.env.PUBLIC_URL + '/images/banner1-full.png'} alt="" />
+			</SwiperSlide>
+			<SwiperSlide>
+				<img src={process.env.PUBLIC_URL + '/images/banner2-full.png'} alt="" />
+			</SwiperSlide>
+			<SwiperSlide>
+				<img src={process.env.PUBLIC_URL + '/images/banner4-full.png'} alt="" />
+			</SwiperSlide>
 		</Swiper>
 	);
 }
