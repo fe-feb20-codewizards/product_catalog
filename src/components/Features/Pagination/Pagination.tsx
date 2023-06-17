@@ -17,7 +17,6 @@ interface PaginationProps {
 export default function Pagination({ 
 	handleButtonNext, handleButtonPrev, handlePage,  currentCardPag, firstButton, lastButton, firstPage, lastPage,
 }: PaginationProps) {
-
 	return (
 		<div className='pagination'>
 			<div className='pagination__buttons'>
