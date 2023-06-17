@@ -14,14 +14,24 @@ export default function PhonesPage() {
 
 	const pagin = useChangeCatalog(sortedPhones.length, perPage);
 	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
+	const page = usePageChanger(1, sortedPhones.length, perPage);
+	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
+
+	const resetPage = () => {
+		onPageChange(1);
+		onChanger(1);
+	};
 
 	const handlePerpage = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+		resetPage();
 		setPerPage(Number(event.target.value));
+
 	}, [perPage, activeButton, sortedPhones]);
 
 
 	const handleSort = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
 		const choose = event.target.value;
+		resetPage();
 		switch (choose) {
 		case 'Newest': setSort(Sorted.Newest);
 			break;
@@ -32,8 +42,7 @@ export default function PhonesPage() {
 		}
 	}, [sort]);
 
-	const page = usePageChanger(1, sortedPhones.length, perPage);
-	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
+
 
 	const showingCards = sortedPhones.slice(startingCard - 1, endingCard);
 
@@ -49,7 +58,7 @@ export default function PhonesPage() {
 			onPageChange(currentCardPag + 1);
 			onChanger(activeButton + 1);
 		}
-	}, [activeButton]);
+	}, [activeButton, perPage]);
 
 	const handlePage = useCallback((page: number) => {
 		onPageChange(page);
