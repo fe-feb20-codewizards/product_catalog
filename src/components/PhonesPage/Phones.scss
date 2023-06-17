@@ -24,6 +24,8 @@
 
     &__sorting {
         display: flex;
+        border-radius: 10%;
+        font-size: 14px;
 
         &-sortby {
             height: 40px;
@@ -54,27 +56,37 @@
         width: scale($cards-number);
     }
 
-    &__footer {
-        height: 32px;
-        width: 248px;
-        align-items: center;
-        justify-items: center;
+    &__buttons {
+            height: 32px;
+            width: 248px;
+            align-items: center;
+            text-align: center;
+            margin: auto;
 
-        &__buttons {
-            display: flex;
-            gap: 16px;
-
-
-            &__button {
-                width: 32px;
-                height: 32px;
-                background-color: $color-white;
-                border: 1px solid $color-icons;
-
-                &__img {
-                    margin: 33%
+        &__container {
+            align-items: center;
+            text-align: center;
+            margin: auto;
+            gap: 5px;
+        
+                &-button {
+                    width: 32px;
+                    height: 32px;
+                    background-color: $color-white;
+                    border: 1px solid $color-icons;
+                    margin: auto 5px;
+                    padding: 5px;
+                    border-radius: 10%;
+        
+            &:hover {
+                    cursor: pointer;
+                }
+            
+                &--disabled {
+                    pointer-events: none;
                 }
             }
-        }
+    
+        }   
     }
 }
