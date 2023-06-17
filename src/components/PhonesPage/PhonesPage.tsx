@@ -3,11 +3,11 @@ import { useCatalogContext } from '../CatalogContext';
 import Card from '../Card/Card';
 
 import { Sorted } from '../../types/Sorted';
-import { getNumbers, usePageChanger } from '../../utils/PageChanger';
-import Button from '../Features/Button';
+import { usePageChanger } from '../../utils/PageChanger';
 import './Phones.scss';
 import { useChangeCatalog } from '../../utils/ChangeCatalog';
 import { Link } from 'react-router-dom';
+import Pagination from '../Features/Pagination/Pagination';
 
 export default function PhonesPage() {
 	const { sortedPhones, sort, setSort } = useCatalogContext();
@@ -65,7 +65,7 @@ export default function PhonesPage() {
 			onPageChange(currentCardPag + 1);
 			onChanger(activeButton + 1);
 		}
-	}, [activeButton, perPage]);
+	}, [activeButton, perPage, currentCardPag, sortedPhones]);
 
 	const handlePage = useCallback((page: number) => {
 		onPageChange(page);
@@ -114,32 +114,34 @@ export default function PhonesPage() {
 
 				</div>
 
-				<div className='phones___buttons'>
-					<div className='phones__buttons__container'>
-						<button onClick={handleButtonPrev} className={`phones__buttons__container-button ${firstPage && 'phones__buttons__container-button--disabled'}`}>{'<'}</button>
-						{getNumbers(firstButton, lastButton + 1).map(page => <Button
-							key={page}
-							page={page}
-							current={currentCardPag}
-							handlePage={handlePage} />)}
-						<button onClick={handleButtonNext} className={`phones__buttons__container-button ${lastPage && 'phones__buttons__container-button--disabled'}`}>{'>'}</button>
-					</div>
+				<div className='phones__pagination'>
+					<Pagination
+						handleButtonNext={handleButtonNext}
+						handleButtonPrev={handleButtonPrev} 
+						handlePage={handlePage}
+						firstButton={firstButton}
+						lastButton={lastButton}
+						currentCardPag={currentCardPag}
+						firstPage={firstPage}
+						lastPage={lastPage}
+					/>
 				</div>
 				<article className='phones__cards'>
 					<div className='phones__cards phones__cards-card'>
 						{showingCards.map(phone => <Card phone={phone} key={phone.id} />)}
 					</div>
 				</article>
-				<div className='phones___buttons'>
-					<div className='phones__buttons__container'>
-						<button onClick={handleButtonPrev} className={`phones__buttons__container-button ${firstPage && 'phones__buttons__container-button--disabled'}`}>{'<'}</button>
-						{getNumbers(firstButton, lastButton + 1).map(page => <Button
-							key={page}
-							page={page}
-							current={currentCardPag}
-							handlePage={handlePage} />)}
-						<button onClick={handleButtonNext} className={`phones__buttons__container-button ${lastPage && 'phones__buttons__container-button--disabled'}`}>{'>'}</button>
-					</div>
+				<div className='phones__pagination'>
+					<Pagination
+						handleButtonNext={handleButtonNext}
+						handleButtonPrev={handleButtonPrev} 
+						handlePage={handlePage}
+						firstButton={firstButton}
+						lastButton={lastButton}
+						currentCardPag={currentCardPag}
+						firstPage={firstPage}
+						lastPage={lastPage}
+					/>
 				</div>
 			</section>
 		</div>
