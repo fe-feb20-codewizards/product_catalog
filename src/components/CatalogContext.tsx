@@ -18,7 +18,7 @@ interface ContextCatalog {
 	removeFromCart: (phone: string) => void;
 	changeCartItemQuantity: (id: string, value: number) => void;
 	sortedPhones: Phone[],
-	setSort: (sort: Sorted) => void,
+	setSort: (sort: Sorted | null) => void,
 	sort: Sorted | null,
 	widthCard: number,
 	gap: number,
@@ -105,6 +105,10 @@ export const CatalogContextProvider = (
 			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
 				break;
 			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
+				break;
+			case Sorted.Oldest: newPhones = newPhones.sort((a, b) => a.year - b.year);
+				break;
+			default: newPhones = phonesData;
 				break;
 			}
 		}

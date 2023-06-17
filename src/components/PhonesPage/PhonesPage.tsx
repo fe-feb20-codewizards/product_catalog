@@ -35,9 +35,13 @@ export default function PhonesPage() {
 		switch (choose) {
 		case 'Newest': setSort(Sorted.Newest);
 			break;
+		case 'Oldest': setSort(Sorted.Oldest);
+			break;
 		case 'PriceUp': setSort(Sorted.PriceUp);
 			break;
 		case 'PriceDown': setSort(Sorted.PriceDown);
+			break;
+		default: setSort(null);
 			break;
 		}
 	}, [sort]);
@@ -79,7 +83,9 @@ export default function PhonesPage() {
 							<select
 								name="sort" id="sort" value={sort || 'Choose sort'} onChange={handleSort} 
 								className='phones__sorting phones__sorting-sortby' >
+								<option value="NoSort" >No sort</option>
 								<option value="Newest">Newest</option>
+								<option value="Oldest">Oldest</option>
 								<option value="PriceUp">Price Up</option>
 								<option value="PriceDown">Price Down</option>
 							</select>
