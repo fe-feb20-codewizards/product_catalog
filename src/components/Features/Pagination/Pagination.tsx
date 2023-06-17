@@ -1,6 +1,6 @@
 import React from 'react';
 import { getNumbers } from '../../../utils/PageChanger';
-import Button from '../Button';
+import Button from '../Button/Button';
 import './Pagination.scss';
 
 interface PaginationProps {
