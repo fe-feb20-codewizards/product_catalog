@@ -52,9 +52,6 @@
         grid-template-columns: 2fr 1fr;
         grid-template-rows: 1fr 1fr;
     }
-    @include desktop {
-      // flex-direction: row;
-    }
   }
 
   &__image-section {

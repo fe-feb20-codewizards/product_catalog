@@ -226,7 +226,9 @@ export const CatalogContextProvider = (
 		(phone) => phone.price < phone.fullPrice
 	),[phonesData]);
 
-	const shuffledPhones = [...discountedPhones].sort(() => Math.random() - 0.5);
+	const shuffledPhones = useMemo(() => {
+		return [...discountedPhones].sort(() => Math.random() - 0.5);
+	}, [phonesData]);
 
 	return (
 		<CatalogContext.Provider value={{
