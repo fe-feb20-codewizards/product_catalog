@@ -18,6 +18,11 @@
       flex-direction: row;
     }
 
+    &-link {
+      color: black;
+      text-decoration: none;
+    }
+
     &__block {
       height: 100%;
 
