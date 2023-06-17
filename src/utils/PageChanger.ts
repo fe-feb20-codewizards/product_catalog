@@ -8,7 +8,7 @@ export const usePageChanger = (initialValue: number, len: number, perPage: numbe
 	const endingCard = currentCardPag + (perPage - 1) > total
 		? total
 		: startingCard + (perPage - 1);
-	const numberOfPages = Math.ceil(total / perPage);
+	const numberOfPages = total - perPage;
 	const firstPage = currentCardPag === 1;
 	const lastPage = currentCardPag === numberOfPages;
 
