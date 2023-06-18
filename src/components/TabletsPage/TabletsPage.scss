@@ -1,0 +1,45 @@
+@import '../../styles/utils/utils.scss';
+
+.tablets {
+    padding: 16px;
+    margin: 10px 150px;
+
+    @include tablet {
+        padding: 24px;
+    }
+
+    @include desktop {
+        padding: 32px;
+    }
+
+    &__header {
+        align-items: left;
+        margin-bottom: 30px;
+
+        &__title {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        color: $color-icons;
+        font-size: 16px;
+        padding: 0 15px;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    &__home {
+        width: 20px;
+        height: 20px;
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

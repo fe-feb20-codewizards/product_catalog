@@ -59,7 +59,27 @@ export const CatalogContextProvider = (
 	const [cartSum, setCartSum] = useState(0);
 	const [cartQuantity, setCartQuantity] = useState(0);
 	const [sort, setSort] = useState<Sorted | null>(null);
+	const sortedPhones = useMemo(() => {
+		let newPhones = phonesData;
+		if (sort) {
+			switch (sort) {
+			case Sorted.Newest: newPhones = newPhones.sort((a, b) => b.year - a.year);
+				break;
+			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
+				break;
+			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
+				break;
+			case Sorted.Oldest: newPhones = newPhones.sort((a, b) => a.year - b.year);
+				break;
+			case Sorted.NoSort: newPhones = newPhones.sort((a, b) => a.itemId.localeCompare(b.itemId));
+				break;
+			default: newPhones;
+				break;
+			}
+		}
 
+		return newPhones;
+	}, [phonesData, sort]);
 
 	useEffect(() => {
 		getAllPhones()
@@ -96,27 +116,7 @@ export const CatalogContextProvider = (
 	}, [cart]);
 	
 
-	const sortedPhones = useMemo(() => {
-		let newPhones = phonesData;
-		if (sort) {
-			switch (sort) {
-			case Sorted.Newest: newPhones = newPhones.sort((a, b) => b.year - a.year);
-				break;
-			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
-				break;
-			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
-				break;
-			case Sorted.Oldest: newPhones = newPhones.sort((a, b) => a.year - b.year);
-				break;
-			case Sorted.NoSort: newPhones = newPhones.sort((a, b) => a.itemId.localeCompare(b.itemId));
-				break;
-			default: newPhones;
-				break;
-			}
-		}
 
-		return newPhones;
-	}, [phonesData, sort]);
 
 	const widthCard = getWidthWindow() > 1200
 		? 275

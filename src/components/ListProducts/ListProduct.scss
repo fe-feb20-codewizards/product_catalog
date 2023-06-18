@@ -1,0 +1,51 @@
+@import './../../styles/utils/utils.scss';
+
+.productList {
+    padding: 16px;
+    margin: 10px auto;
+
+    @include tablet {
+        padding: 24px;
+    }
+
+    @include desktop {
+        padding: 32px;
+    }
+
+    &__pagination {
+        align-items: center;
+        text-align: center;
+        margin: auto;
+    }
+
+    &__cards {
+        margin: 15px auto;
+            display: flex;
+            gap: 16px;
+            justify-content: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: scale($cards-number);
+    }
+}
+
+
+.sorting {
+    display: flex;
+    border-radius: 10%;
+    font-size: 14px;
+    margin-bottom: 15px;
+
+    &-sortby {
+        height: 40px;
+        width: 176px;
+        border: 1px solid #B4BDC4;
+        margin: 0 10px;
+    }
+
+    &-pages {
+        height: 40px;
+        width: 128px;
+        border: 1px solid #B4BDC4;
+    }
+}

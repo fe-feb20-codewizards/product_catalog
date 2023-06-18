@@ -9,6 +9,7 @@ import { NotFoundPage } from './components/NotFoundPage';
 import { Cart } from './components/Cart/Cart';
 import ProductPage from './components/ProductPage/ProductPage';
 import Favorites from './components/Favorites/Favorites';
+import { TabletsPage } from './components/TabletsPage/TabletsPage';
 
 function App() {
 	return (
@@ -23,7 +24,7 @@ function App() {
 				</Route>
 				<Route path="/home" element={<Navigate to="/" />} />
 				<Route path="phones" element={<PhonesPage />} />
-				<Route path="tablets" element={<h1>tabletPage</h1>} />
+				<Route path="tablets" element={<TabletsPage />} />
 				<Route path="accessories" element={<h1>accessoriesPage</h1>} />
 				<Route path="favorites" element={<Favorites />} />
 				<Route path="cart" element={<Cart />} />
