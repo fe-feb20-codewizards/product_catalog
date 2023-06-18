@@ -72,16 +72,6 @@
     &__cards {
         margin: 15px auto;
         display: grid;
-
-    }
-
-    &__cards-card {
-        display: flex;
-        gap: 16px;
-        justify-content: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        width: scale($cards-number);
     }
 
     &__buttons {

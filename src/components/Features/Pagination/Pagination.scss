@@ -1,7 +1,11 @@
 @import './../../../styles/utils/utils.scss';
 
 .pagination {
-    height: 32px;
+    @include tablet {
+        height: 32px; 
+    }
+    display: flex;
+    flex-direction: row;
     align-items: center;
     text-align: center;
     margin: auto;
@@ -13,8 +17,16 @@
             gap: 5px;
 
             &-button {
-                width: 32px;
-                height: 32px;
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+
+                @include tablet {
+                    width: 32px;
+                    height: 32px;
+                    font-size: 16px;
+                }
+                
                 background-color: $color-white;
                 border: 1px solid $color-icons;
                 margin: auto 5px;
