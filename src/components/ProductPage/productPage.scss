@@ -34,10 +34,10 @@
     
       @include tablet {
         gap: 65px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: 100vh;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        height: 100vh;
     }
   }
 
@@ -56,7 +56,8 @@
 
   &__image-section {
     flex: 1;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
     height: 90vh;
 
     &-photo {
