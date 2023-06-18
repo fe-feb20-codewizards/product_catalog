@@ -6,33 +6,34 @@ import './ListProduct.scss';
 import { useChangeCatalog } from '../../utils/ChangeCatalog';
 import Pagination from '../Features/Pagination/Pagination';
 import { Phone } from '../../types/Phone';
+import { Tablet } from '../../types/Tablet';
 
 interface ListProductProps {
-    list: Phone[],
+    list: Phone[] | Tablet[],
 }
 
 export default function ListProduct({ list }: ListProductProps) {
 	const [sort, setSort] = useState<Sorted | null>(null);
-	const sortedPhones = useMemo(() => {
-		let newPhones = list;
+	const sortedProducts = useMemo(() => {
+		let newList = list;
 		if (sort) {
 			switch (sort) {
-			case Sorted.Newest: newPhones = newPhones.sort((a, b) => b.year - a.year);
+			case Sorted.Newest: newList = newList.sort((a, b) => b.year - a.year);
 				break;
-			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
+			case Sorted.PriceDown: newList = newList.sort((a, b) => b.price - a.price);
 				break;
-			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
+			case Sorted.PriceUp: newList = newList.sort((a, b) => a.price - b.price);
 				break;
-			case Sorted.Oldest: newPhones = newPhones.sort((a, b) => a.year - b.year);
+			case Sorted.Oldest: newList = newList.sort((a, b) => a.year - b.year);
 				break;
-			case Sorted.NoSort: newPhones = newPhones.sort((a, b) => a.itemId.localeCompare(b.itemId));
+			case Sorted.NoSort: newList = newList.sort((a, b) => a.itemId.localeCompare(b.itemId));
 				break;
-			default: newPhones;
+			default: newList;
 				break;
 			}
 		}
 
-		return newPhones;
+		return newList;
 	}, [list, sort]);
 	const [perPage, setPerPage] = useState(16);
 
@@ -74,7 +75,7 @@ export default function ListProduct({ list }: ListProductProps) {
 
 
 
-	const showingCards = list.slice(startingCard - 1, endingCard);
+	const showingCards = sortedProducts.slice(startingCard - 1, endingCard);
 
 	const handleButtonPrev = useCallback(() => {
 		if (activeButton > 1 && currentCardPag > 1) {
@@ -88,7 +89,7 @@ export default function ListProduct({ list }: ListProductProps) {
 			onPageChange(currentCardPag + 1);
 			onChanger(activeButton + 1);
 		}
-	}, [activeButton, perPage, currentCardPag, sortedPhones]);
+	}, [activeButton, perPage, currentCardPag, sortedProducts]);
 
 	const handlePage = useCallback((page: number) => {
 		onPageChange(page);
