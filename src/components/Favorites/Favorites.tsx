@@ -15,7 +15,7 @@ export default function favorites() {
 				</div>
 				<div className="favorites__cards">
 					{favorites.map((phone) => (
-						<div key={phone.id} className="favorites__card"><Card phone={phone}/></div> 
+						<div key={phone.id} className="favorites__card"><Card product={phone}/></div> 
 					))}
 				</div>
 			</div>

@@ -36,7 +36,6 @@ export default function ListProduct({ list }: ListProductProps) {
 		return newList;
 	}, [list, sort]);
 	const [perPage, setPerPage] = useState(16);
-
 	const pagin = useChangeCatalog(list.length, perPage);
 	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
 	const page = usePageChanger(1, list.length, perPage);
@@ -139,7 +138,7 @@ export default function ListProduct({ list }: ListProductProps) {
 					lastPage={lastPage} />
 			</div>
 			<article className='productList__cards'>
-				{showingCards.map(phone => <Card phone={phone} key={phone.id} />)}
+				{showingCards.map(list => <Card product={list} key={list.id} />)}
 			</article>
 			<div className='ProductList__pagination'>
 				<Pagination
