@@ -10,6 +10,7 @@ import { Cart } from './components/Cart/Cart';
 import ProductPage from './components/ProductPage/ProductPage';
 import Favorites from './components/Favorites/Favorites';
 import { TabletsPage } from './components/TabletsPage/TabletsPage';
+import { Accessories } from './components/Accessories/Accessories';
 
 function App() {
 	return (
@@ -25,7 +26,7 @@ function App() {
 				<Route path="/home" element={<Navigate to="/" />} />
 				<Route path="phones" element={<PhonesPage />} />
 				<Route path="tablets" element={<TabletsPage />} />
-				<Route path="accessories" element={<h1>accessoriesPage</h1>} />
+				<Route path="accessories" element={<Accessories />} />
 				<Route path="favorites" element={<Favorites />} />
 				<Route path="cart" element={<Cart />} />
 				<Route path="product_catalog" element={<Navigate to="/" />} />
