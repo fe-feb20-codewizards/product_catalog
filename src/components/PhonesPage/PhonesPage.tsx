@@ -17,7 +17,7 @@ export default function PhonesPage() {
 			</div>
 			<header className='phones__header'>
 				<h1 className='phones__header__title'>Phones Model</h1>
-				<p className='phones__header__title-text'>95 models</p>
+				<p className='phones__header__title-text'>{phonesData.length} models</p>
 			</header>
 			<section>
 				<ListProduct list={phonesData} />  

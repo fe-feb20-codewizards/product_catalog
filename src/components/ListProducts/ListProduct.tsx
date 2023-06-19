@@ -4,10 +4,11 @@ import { Sorted } from '../../types/Sorted';
 import { usePageChanger } from '../../utils/PageChanger';
 import './ListProduct.scss';
 import { useChangeCatalog } from '../../utils/ChangeCatalog';
-import Pagination from '../Features/Pagination/Pagination';
 import { Phone } from '../../types/Phone';
 import { Tablet } from '../../types/Tablet';
 import { Sorting } from '../Features/Sorting/Sorting';
+import Pagination from '@mui/material/Pagination';
+import { Stack } from '@mui/material';
 
 interface ListProductProps {
     list: Phone[] | Tablet[],
@@ -15,13 +16,11 @@ interface ListProductProps {
 
 export default function ListProduct({ list }: ListProductProps) {
 	const [sort, setSort] = useState<Sorted | null>(null);
-	const [perPage, setPerPage] = useState(16);
+	const [perPage, setPerPage] = useState(8);
 	const pagin = useChangeCatalog(list.length, perPage);
-	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
+	const { maxPages, onChanger, activeButton } = pagin;
 	const page = usePageChanger(1, list.length, perPage);
-	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
-
-	const lastVisiblePage = Math.ceil(list.length / perPage);
+	const { currentCardPag, onPageChange, startingCard, endingCard } = page;
 	
 	const sortedProducts = useMemo(() => {
 		let newList = list;
@@ -76,23 +75,9 @@ export default function ListProduct({ list }: ListProductProps) {
 
 	const showingCards = sortedProducts.slice(startingCard - 1, endingCard);
 
-	const handleButtonPrev = useCallback(() => {
-		if (activeButton > 1 && currentCardPag > 1) {
-			onPageChange(currentCardPag - 1);
-			onChanger(activeButton - 1);
-		}
-	}, [activeButton]);
-
-	const handleButtonNext = useCallback(() => {
-		if (currentCardPag < maxPages) {
-			onPageChange(currentCardPag + 1);
-			onChanger(activeButton + 1);
-		}
-	}, [activeButton, perPage, currentCardPag, sortedProducts]);
-
-	const handlePage = useCallback((page: number) => {
-		onPageChange(page);
-		onChanger(page);
+	const handlePage = useCallback((page: React.ChangeEvent<unknown>, value: number) => {
+		onPageChange(value);
+		onChanger(value);
 	}, [activeButton, perPage]);
 
 	return (
@@ -106,33 +91,17 @@ export default function ListProduct({ list }: ListProductProps) {
 				/>
 			</div>
 			<div className='productList__pagination'>
-				<Pagination
-					handleButtonNext={handleButtonNext}
-					handleButtonPrev={handleButtonPrev}
-					handlePage={handlePage}
-					firstButton={firstButton}
-					lastButton={lastButton}
-					currentCardPag={currentCardPag}
-					firstPage={firstPage}
-					lastPage={lastPage} 
-					lastVisiblePage={lastVisiblePage}
-				/>
+				<Stack>
+					<Pagination count={maxPages} page={currentCardPag} onChange={handlePage} />
+				</Stack>
 			</div>
 			<article className='productList__cards'>
 				{showingCards.map(list => <Card product={list} key={list.id} />)}
 			</article>
 			<div className='ProductList__pagination'>
-				<Pagination
-					handleButtonNext={handleButtonNext}
-					handleButtonPrev={handleButtonPrev}
-					handlePage={handlePage}
-					firstButton={firstButton}
-					lastButton={lastButton}
-					currentCardPag={currentCardPag}
-					firstPage={firstPage}
-					lastPage={lastPage} 
-					lastVisiblePage={lastVisiblePage}
-				/>
+				<Stack >
+					<Pagination count={maxPages} page={currentCardPag} onChange={handlePage} />
+				</Stack>
 			</div>
 		</div>
 	);
