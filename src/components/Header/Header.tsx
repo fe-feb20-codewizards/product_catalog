@@ -4,9 +4,14 @@ import './Header.scss';
 import { Link, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 import BurgerPopUp from '../BurgerPopUp/BurgerPopUp';
+import { Badge } from '@mui/material';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import { useCatalogContext } from '../CatalogContext';
 
 export const Header = () => {
 	const [isActive, setIsActive] = useState(false);
+	const { favorites, cartQuantity } = useCatalogContext();
 
 	const handleBurgerClick = () => {
 		setIsActive((prevIsActive) => !prevIsActive);
@@ -79,21 +84,22 @@ export const Header = () => {
 						to="/favorites"
 						className="nav-buttons__element block"
 					>
-						<img
-							src={process.env.PUBLIC_URL + '/images/heart.svg'}
-							alt="favorities icon"
-							className="nav-buttons__icon"
-						/>
+						<Badge badgeContent={favorites.length} color="primary"   sx={{
+							'& .MuiBadge-badge': {
+								color: 'white',
+								backgroundColor: 'red'
+							}
+						}}>
+							<FavoriteBorderOutlinedIcon color='action' />
+						</Badge>
 					</Link>
 					<Link
 						to="/cart"
 						className="nav-buttons__element block"
 					>
-						<img
-							src={process.env.PUBLIC_URL + '/images/Shopping bag (Cart).svg'}
-							alt="favorities icon"
-							className="nav-buttons__icon"
-						/>
+						<Badge badgeContent={cartQuantity} color="primary">
+							<LocalMallOutlinedIcon color='action' />
+						</Badge>
 					</Link>
 					
 					<a
