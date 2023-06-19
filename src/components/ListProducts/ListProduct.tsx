@@ -7,6 +7,7 @@ import { useChangeCatalog } from '../../utils/ChangeCatalog';
 import Pagination from '../Features/Pagination/Pagination';
 import { Phone } from '../../types/Phone';
 import { Tablet } from '../../types/Tablet';
+import { Sorting } from '../Features/Sorting/Sorting';
 
 interface ListProductProps {
     list: Phone[] | Tablet[],
@@ -19,6 +20,8 @@ export default function ListProduct({ list }: ListProductProps) {
 	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
 	const page = usePageChanger(1, list.length, perPage);
 	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
+
+	const lastVisiblePage = Math.ceil(list.length / perPage);
 	
 	const sortedProducts = useMemo(() => {
 		let newList = list;
@@ -94,34 +97,13 @@ export default function ListProduct({ list }: ListProductProps) {
 
 	return (
 		<div className='productList'>
-			<div className='sorting'>
-				<div>
-					<p className='sorting-text'>Sort by</p>
-					<label htmlFor="sort">
-						<select
-							name="sort" id="sort" value={sort || 'Choose sort'} onChange={handleSort}
-							className='sorting sorting-sortby'>
-							<option value="NoSort">No sort</option>
-							<option value="Newest">Newest</option>
-							<option value="Oldest">Oldest</option>
-							<option value="PriceUp">Price Up</option>
-							<option value="PriceDown">Price Down</option>
-						</select>
-					</label>
-				</div>
-				<div>
-					<p className='sorting-text'>Items on page</p>
-					<label htmlFor="page" className='sorting-page'>
-						<select
-							name="page" id="page" value={perPage} onChange={handlePerpage}
-							className='sorting sorting-pages'>
-							<option value="4">4</option>
-							<option value="16">16</option>
-							<option value="20">20</option>
-						</select>
-					</label>
-				</div>
-
+			<div className="productList__sort">
+				<Sorting
+					sort={sort}
+					handleSort={handleSort}
+					perPage={perPage}
+					handlePerpage={handlePerpage}
+				/>
 			</div>
 			<div className='productList__pagination'>
 				<Pagination
@@ -132,7 +114,9 @@ export default function ListProduct({ list }: ListProductProps) {
 					lastButton={lastButton}
 					currentCardPag={currentCardPag}
 					firstPage={firstPage}
-					lastPage={lastPage} />
+					lastPage={lastPage} 
+					lastVisiblePage={lastVisiblePage}
+				/>
 			</div>
 			<article className='productList__cards'>
 				{showingCards.map(list => <Card product={list} key={list.id} />)}
@@ -146,7 +130,9 @@ export default function ListProduct({ list }: ListProductProps) {
 					lastButton={lastButton}
 					currentCardPag={currentCardPag}
 					firstPage={firstPage}
-					lastPage={lastPage} />
+					lastPage={lastPage} 
+					lastVisiblePage={lastVisiblePage}
+				/>
 			</div>
 		</div>
 	);

@@ -1,14 +1,21 @@
 @import '../../styles/utils/utils.scss';
 
 .phones {
-    padding: 16px;
+    padding: 10px 30px 0;
 
     @include tablet {
-        padding: 24px;
+        padding: 20px 50px 0;
     }
 
     @include desktop {
-        padding: 32px;
+        padding: 50px 150px 0;
+    }
+
+    @media (min-width: 1800px) {
+        padding: 70px 250px 0;
+    }
+    @media (min-width: 2500px) {
+        padding: 70px 500px 0;
     }
 
     &__header {
@@ -25,7 +32,7 @@
         text-decoration: none;
         color: $color-icons;
         font-size: 16px;
-        padding: 0 15px;
+        padding: 0 15px 0 0;
 
         &:hover {
             color: black;
@@ -40,70 +47,5 @@
         &:hover {
             opacity: 1;
         }
-    }
-
-    &__pagination {
-        align-items: center;
-        text-align: center;
-        margin: auto;
-    }
-
-    &__sorting {
-        display: flex;
-        border-radius: 10%;
-        font-size: 14px;
-        margin-bottom: 15px;
-
-        &-sortby {
-            height: 40px;
-            width: 176px;
-            border: 1px solid #B4BDC4;
-            margin: 0 10px;
-        }
-
-        &-pages {
-            height: 40px;
-            width: 128px;
-            border: 1px solid #B4BDC4;
-        }
-    }
-
-    &__cards {
-        margin: 15px auto;
-        display: grid;
-    }
-
-    &__buttons {
-            height: 32px;
-            width: 248px;
-            align-items: center;
-            text-align: center;
-            margin: auto;
-
-        &__container {
-            align-items: center;
-            text-align: center;
-            margin: auto;
-            gap: 5px;
-        
-                &-button {
-                    width: 32px;
-                    height: 32px;
-                    background-color: $color-white;
-                    border: 1px solid $color-icons;
-                    margin: auto 5px;
-                    padding: 5px;
-                    border-radius: 10%;
-        
-            &:hover {
-                    cursor: pointer;
-                }
-            
-                &--disabled {
-                    pointer-events: none;
-                }
-            }
-    
-        }   
     }
 }

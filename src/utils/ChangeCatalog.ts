@@ -5,12 +5,12 @@ export const useChangeCatalog = (len: number, perPage: number) => {
 	const onChanger = (button: number) => setActiveButton(button);
 
 	const maxPages = (len / perPage);
-	const firstButton = activeButton > 3
-		? activeButton - 2
+	const firstButton = activeButton > 2
+		? activeButton - 1
 		: 1;
-	const lastButton = activeButton + 2 > maxPages
+	const lastButton = activeButton + 1 > maxPages
 		? maxPages
-		: activeButton + 2;
+		: activeButton + 1;
 
 	return { firstButton, lastButton, maxPages, onChanger, activeButton };
 };
