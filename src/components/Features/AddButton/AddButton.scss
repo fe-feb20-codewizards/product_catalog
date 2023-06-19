@@ -1,0 +1,44 @@
+@import '../../../styles/utils/utils.scss';
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    
+    &-add-to-cart {
+      cursor: pointer;
+      border: none;
+      padding: 9.5px 0 9.5px 0;
+      width: 100%;
+      height: 40px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 21px;
+      color: $color-white;
+      background-color: $color-primary;
+      
+      &.selected {
+        background-color: $color-white;
+        border: 1px solid $color-elements;
+        color: $color-green;
+      }
+
+      &:hover {
+        box-shadow: 0 3px 13px rgba(23, 32, 49, 0.4);
+      }
+    }
+
+    &-add-to-favorites {
+      cursor: pointer;
+      min-width: 40px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid $color-elements;
+      background-color: $color-white;
+      color: $color-primary;
+
+      &:hover {
+        box-shadow: 0 3px 13px rgba(23, 32, 49, 0.4);
+      }
+    }
+  }

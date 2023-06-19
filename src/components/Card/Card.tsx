@@ -2,9 +2,8 @@ import React from 'react';
 import './card.scss';
 import { Phone } from '../../types/Phone';
 import { Link } from 'react-router-dom';
-import { useCatalogContext } from '../CatalogContext';
 import { Tablet } from '../../types/Tablet';
-import classNames from 'classnames';
+import { AddButton } from '../Features/AddButton/AddButton';
 
 interface CardProps {
 	product: Phone | Tablet;
@@ -21,19 +20,6 @@ export default function Card({ product }: CardProps) {
 		ram,
 		image
 	} = product;
-	const { addToCart, favorites, addToFavorites, removeFromFavorites, cart } = useCatalogContext();
-
-	const isFavorite = favorites.some((favoritePhone) => favoritePhone.id === product.id);
-
-	const handleFavoriteClick = () => {
-		if (isFavorite) {
-			removeFromFavorites(product);
-		} else {
-			addToFavorites(product);
-		}
-	};
-
-	const isInCart = cart.some(cartt => cartt.id === product.id);
 
 	return (
 		<div className="card">
@@ -73,25 +59,9 @@ export default function Card({ product }: CardProps) {
 							<li>{ram}</li>
 						</div>
 					</ul>
-
-					<div className="card__buttons">
-						<button 
-							className={classNames('card__buttons-add-to-cart', {'selected': isInCart})}
-							onClick={() => addToCart(product)}
-						>
-								Add to cart
-						</button>
-						<button 
-							className="card__buttons-add-to-favorites"
-							onClick={handleFavoriteClick}
-						>	
-							<img
-								className="card__buttons-add-to-favorites-icon"
-								src={process.env.PUBLIC_URL + (isFavorite ? '/images/union.png' : '/images/heart.svg')}
-								alt="Add to favorites"	
-							/>
-						</button>
-					</div>
+					<AddButton
+						product={product}
+					/>
 				</div>
 			</div>
 		</div>
