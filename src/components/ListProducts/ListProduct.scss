@@ -1,15 +1,10 @@
 @import './../../styles/utils/utils.scss';
 
 .productList {
-    padding: 16px;
-    margin: 10px auto;
-
-    @include tablet {
-        padding: 24px;
-    }
+    padding: 10px auto;
 
     @include desktop {
-        padding: 32px;
+        padding: 30px 150px;
     }
 
     &__pagination {
@@ -23,20 +18,23 @@
     }
 
     &__cards {
-        margin: 15px auto;
-            display: flex;
-            gap: 16px;
-            justify-content: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            width: scale($cards-number-phones);
+        display: grid;
+            grid-template-columns: repeat(1, minmax(280px, 1fr));
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+            justify-items: center;
+            margin: auto;
 
-        @include tablet {
-            width: scale($cards-number-tablet);
+        @media (min-width: 450px) {
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
         }
 
-        @include desktop{
-            width: scale($cards-number-desktop);
+        @media(min-width: 900px) {
+            grid-template-columns: repeat(4, minmax(280px, 1fr));
+        }
+
+        @media (min-width: 2200px) {
+            grid-template-columns: repeat(8, minmax(280px, 1fr));
         }
     }
 }
@@ -48,6 +46,7 @@
     font-size: 14px;
     margin-bottom: 15px;
     flex-direction: column;
+    margin: auto;
 
     @include tablet {
         flex-direction: row;
