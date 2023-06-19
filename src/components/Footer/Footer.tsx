@@ -13,7 +13,7 @@ export default function Footer() {
 					/>
 				</div>
 				<div className='footer__links'>
-					<a href="#github" className="footer__link uppercase">GITHUB</a>
+					<a href="https://github.com/fe-feb20-codewizards/product_catalog" className="footer__link uppercase">GITHUB</a>
 					<a href="#contacts" className="footer__link uppercase">CONTACTS</a>
 					<a href="#rights" className="footer__link uppercase">RIGHTS</a>
 				</div>
