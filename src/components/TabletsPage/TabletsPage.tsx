@@ -9,11 +9,11 @@ export function TabletsPage() {
 	return (
 		<div className='tablets'>
 			<div className='tablets__links'>
-				<Link to="/" className="tablets__link">
+				<Link to="/product_catalog/" className="tablets__link">
 					<img src={process.env.PUBLIC_URL + '/images/Home.jpg'} alt="" className='tablets__home'/>
 				</Link>
 				{'    >    '} 
-				<Link to="/tablets" className="tablets__link" >Tablets</Link>
+				<Link to="/product_catalog/tablets" className="tablets__link" >Tablets</Link>
 			</div>
 			<header className='tablets__header'>
 				<h1 className='header__title'>Tablets</h1>

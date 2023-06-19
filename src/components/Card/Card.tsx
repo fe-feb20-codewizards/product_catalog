@@ -24,7 +24,7 @@ export default function Card({ product }: CardProps) {
 	return (
 		<div className="card">
 			<div className="card__container">
-				<Link className="no-underline" to={`/item/${itemId}`}>
+				<Link className="no-underline" to={`/product_catalog/item/${itemId}`}>
 					<div className="card__img">
 						<img
 							className="card__img-photo"
@@ -35,7 +35,7 @@ export default function Card({ product }: CardProps) {
 					</div>
 				</Link>
 				<div className="card__wrapper">
-					<Link className="no-underline" to={`/item/${itemId}`}>
+					<Link className="no-underline" to={`/product_catalog/item/${itemId}`}>
 						<div className="card__title">
 							{name}
 						</div>

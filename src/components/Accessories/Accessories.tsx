@@ -9,11 +9,11 @@ export function Accessories() {
 	return (
 		<div className='accessories'>
 			<div>
-				<Link to="/" className="accessories__link">
+				<Link to="/product_catalog/" className="accessories__link">
 					<img src={process.env.PUBLIC_URL + '/images/Home.jpg'} alt="" className='accessories__home' />
 				</Link> 
 				{'    >    '}
-				<Link to="/accessories" className="accessories__link" >Accessories</Link>
+				<Link to="/product_catalog/accessories" className="accessories__link" >Accessories</Link>
 			</div>
 			<header className='accessories__header'>
 				<h1 className='header__title'>Accessories</h1>

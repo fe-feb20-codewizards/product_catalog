@@ -19,18 +19,18 @@ function App() {
 				<Header />
 			</header>
 			<Routes>
-				<Route path="/item/:itemId" element={<ProductPage />} />
-				<Route path="/" element={<Content />}>
+				<Route path="/product_catalog/item/:itemId" element={<ProductPage />} />
+				<Route path="/product_catalog" element={<Content />}>
 					<Route path=':direction' element={<Content />}/>
 				</Route>
-				<Route path="/home" element={<Navigate to="/" />} />
-				<Route path="phones" element={<PhonesPage />} />
-				<Route path="tablets" element={<TabletsPage />} />
-				<Route path="accessories" element={<Accessories />} />
-				<Route path="favorites" element={<Favorites />} />
-				<Route path="cart" element={<Cart />} />
-				<Route path="product_catalog" element={<Navigate to="/" />} />
-				<Route path="/*" element={<NotFoundPage />} />
+				<Route path="/product_catalog/home" element={<Navigate to="/" />} />
+				<Route path="/product_catalog/phones" element={<PhonesPage />} />
+				<Route path="/product_catalog/tablets" element={<TabletsPage />} />
+				<Route path="/product_catalog/accessories" element={<Accessories />} />
+				<Route path="/product_catalog/favorites" element={<Favorites />} />
+				<Route path="/product_catalog/cart" element={<Cart />} />
+				<Route path="/product_catalog/product_catalog" element={<Navigate to="/" />} />
+				<Route path="/product_catalog/*" element={<NotFoundPage />} />
 			</Routes>
 
 			<footer>

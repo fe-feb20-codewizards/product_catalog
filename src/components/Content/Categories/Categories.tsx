@@ -9,7 +9,7 @@ export default function Categories() {
 		<section className="categories">
 			<h2>Shop by category</h2>
 			<div className="categories__blocks">
-				<Link to="/phones" className="categories__blocks-link">
+				<Link to="/product_catalog/phones" className="categories__blocks-link">
 					<div className="categories__blocks-phones categories__blocks__block">
 						<img
 							className="categories__blocks__block-photo"
@@ -24,7 +24,7 @@ export default function Categories() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/tablets" className="categories__blocks-link">
+				<Link to="/product_catalog/tablets" className="categories__blocks-link">
 					<div className="categories__blocks-tablets categories__blocks__block">
 						<img
 							className="categories__blocks__block-photo"
@@ -39,7 +39,7 @@ export default function Categories() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/accessories" className="categories__blocks-link">
+				<Link to="/product_catalog/accessories" className="categories__blocks-link">
 					<div className="categories__blocks-accessories categories__blocks__block">
 						<img
 							className="categories__blocks__block-photo"

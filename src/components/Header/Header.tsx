@@ -22,7 +22,7 @@ export const Header = () => {
 				<div className='navigation-header__cotainer'>
 					<li className="navigation-header__item logo">
 						<NavLink
-							to="/"
+							to="/product_catalog/"
 							className="navigation-header__link__logo is-active-link"
 						>
 							<img
@@ -35,7 +35,7 @@ export const Header = () => {
 				
 					<li className="navigation-header__item_l">
 						<NavLink
-							to="/"
+							to="/product_catalog/"
 							className={({ isActive }) =>
 								classNames('navigation-header__link', { active: isActive })
 							}
@@ -45,7 +45,7 @@ export const Header = () => {
 					</li>
 					<li className="navigation-header__item_l">
 						<NavLink
-							to="/phones"
+							to="/product_catalog/phones"
 							className={({ isActive }) =>
 								classNames('navigation-header__link', { active: isActive })
 							}
@@ -55,7 +55,7 @@ export const Header = () => {
 					</li>
 					<li className="navigation-header__item_l">
 						<NavLink
-							to="/tablets"
+							to="/product_catalog/tablets"
 							className={({ isActive }) =>
 								classNames('navigation-header__link', { active: isActive })
 							}
@@ -65,7 +65,7 @@ export const Header = () => {
 					</li>
 					<li className="navigation-header__item_l">
 						<NavLink
-							to="/accessories"
+							to="/product_catalog/accessories"
 							className={({ isActive }) =>
 								classNames('navigation-header__link', { active: isActive })
 							}
@@ -76,7 +76,7 @@ export const Header = () => {
 				</div>
 				<div className="nav-buttons">
 					<Link
-						to="/favorites"
+						to="/product_catalog/favorites"
 						className="nav-buttons__element block"
 					>
 						<img
@@ -86,7 +86,7 @@ export const Header = () => {
 						/>
 					</Link>
 					<Link
-						to="/cart"
+						to="/product_catalog/cart"
 						className="nav-buttons__element block"
 					>
 						<img
