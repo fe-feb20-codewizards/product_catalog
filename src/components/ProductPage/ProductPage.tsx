@@ -5,6 +5,7 @@ import { getPhone } from '../../api/phones';
 import { PhoneInfo } from '../../types/PhoneInfo';
 import { AddButton } from '../Features/AddButton/AddButton';
 import { useCatalogContext } from '../CatalogContext';
+import classNames from 'classnames';
 
 export default function ProductPage() {
 	const { itemId } = useParams<{ itemId: string }>();
@@ -56,6 +57,17 @@ export default function ProductPage() {
 		return newUrl;
 	};
 
+	const handleCapacityClick = (capacity: string) => {
+		const urlParts = location.pathname.split('-');
+		urlParts.splice(urlParts.length - 2, 1, capacity.toLowerCase());
+		const newUrl = urlParts.join('-');
+		return newUrl;
+	};
+
+	const selectedCapacity = location.pathname.split('-').slice(-2, -1)[0];
+	const selectedColor = location.pathname.split('-').pop();
+
+
 	return (
 		<div className="productPage">
 			<div className="productPage__wrapper">
@@ -82,12 +94,15 @@ export default function ProductPage() {
 					<div className="productPage__options-section">
 						<div className="productPage__options-section-colors">
 							Available colors: <br />
-							{colorsAvailable.map((color, index) => (
-								<Link to={handleColorClick(color)} key={index} >
+							{colorsAvailable.map((colorOption, index) => (
+								<Link to={handleColorClick(colorOption)} key={index} >
 									<li
-										className="productPage__options-section-colors-li" 
+										className={classNames('productPage__options-section-colors-option', {
+											'productPage__options-section-colors-option--selected':
+        colorOption.toLowerCase() === selectedColor,
+										})}
 										style={{
-											backgroundColor: color,
+											backgroundColor: colorOption,
 										}}>
 									</li>
 								</Link>
@@ -95,7 +110,19 @@ export default function ProductPage() {
 						</div>
 						<div className="card__divider productPage__divider"></div>
 						<div className="productPage__options-section-capacity">
-							Select capacity: <br /> {capacityAvailable.join(', ')}
+							Select capacity: <br />
+							{capacityAvailable.map((capacityOption, index) => (
+								<Link
+									to={handleCapacityClick(capacityOption)}
+									key={index}
+									className={classNames('productPage__options-section-capacity-option', {
+										'productPage__options-section-capacity-option--selected':
+        capacityOption.toLowerCase() === selectedCapacity,
+									})}
+								>
+									{capacityOption}
+								</Link>
+							))}
 						</div>
 						<div className="card__divider productPage__divider"></div>
 						<div className="productPage__options-section-info">

@@ -80,13 +80,33 @@
   &__options-section {
     flex: 1;
     &-colors {
-      &-li {
+      &-option {
 				height: 25px;
 				width: 25px;
 				border-radius: 50%;
 				display: inline-block;
 				margin-right: 5px;
+        border: 2px solid $color-secondary;
+        &--selected {
+          border-color: black;
+        }
+      }
+    }
+    &-capacity {
+      &-option {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 4px;
         border: 1px solid black;
+        border-radius: 4px;
+        background-color: white;
+        color: black;
+        text-decoration: none;
+
+        &--selected {
+          background-color: black;
+          color: white;
+        }
       }
     }
   }
