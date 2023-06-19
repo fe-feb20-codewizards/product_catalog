@@ -24,9 +24,6 @@ interface ContextCatalog {
 
 export const CatalogContext = createContext<ContextCatalog>(
 	{
-		// sortedPhones: [],
-		// setSort: () => { },
-		// sort: null,
 		uniquePhones: [],
 		favorites: [],
 		shuffledPhones: [],
