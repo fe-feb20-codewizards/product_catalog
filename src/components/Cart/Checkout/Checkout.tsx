@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Checkout.scss';
+import { Alert, Snackbar } from '@mui/material';
 
 interface Props {
 	sum: number;
@@ -10,15 +11,21 @@ interface Props {
 
 export function Checkout({ sum, quantity, handleClearEntireCart }: Props) {
 	const [showConfirmation, setShowConfirmation] = useState(false);
+	const [showAlert, setShowAlert] = useState(false);
 	const navigate = useNavigate();
 
 	const handleCheckout = () => {
-		handleClearEntireCart();
+		if (quantity === 0) {
+			setShowAlert(true);
+		} 
+		else {
+			handleClearEntireCart();
 
-		setShowConfirmation(true);
-		setTimeout(() => {
-			navigate('/');
-		}, 5000);
+			setShowConfirmation(true);
+			setTimeout(() => {
+				navigate('/');
+			}, 5000);
+		}
 	};
 
 	return (
@@ -43,6 +50,14 @@ export function Checkout({ sum, quantity, handleClearEntireCart }: Props) {
 					</div>
 				)}
 			</div>
+			<Snackbar
+				open={showAlert}
+				anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
+				autoHideDuration={5000}
+				onClose={() => setShowAlert(false)}
+			>
+				<Alert severity="error">Your Cart is Empty!</Alert>
+			</Snackbar>
 		</div>
 	);
 }
