@@ -3,10 +3,13 @@ import './productPage.scss';
 import { useParams } from 'react-router-dom';
 import { getPhone } from '../../api/phones';
 import { PhoneInfo } from '../../types/PhoneInfo';
+import { AddButton } from '../Features/AddButton/AddButton';
+import { useCatalogContext } from '../CatalogContext';
 
 export default function ProductPage() {
 	const { itemId } = useParams<{ itemId: string }>();
 	const [phoneData, setPhoneData] = useState<PhoneInfo | null>(null);
+	const { phonesData } = useCatalogContext();
 
 	useEffect(() => {
 		if (itemId) {
@@ -40,6 +43,8 @@ export default function ProductPage() {
 		colorsAvailable,
 		capacityAvailable,
 	} = phoneData;
+
+	const product = phonesData.filter(phone => phone.itemId === itemId);
 
 	const mainImage = images[0];
 
@@ -85,18 +90,9 @@ export default function ProductPage() {
 									{priceRegular}
 								</h4>
 							</div>
-							<div className="card__buttons">
-								<button className="card__buttons-add-to-cart">
-							Add to cart
-								</button>
-								<button className="card__buttons-add-to-favorites">
-									<img
-										className="card__buttons-add-to-favorites-icon"
-										src={process.env.PUBLIC_URL + '/images/heart.svg'}
-										alt="Add to favorites"
-									/>
-								</button>
-							</div>
+							<AddButton
+								product={product[0]}
+							/>
 							<ul className="card__info">
 								<div className="card__info-left">
 									<li>Screen</li>

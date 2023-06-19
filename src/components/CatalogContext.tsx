@@ -90,16 +90,16 @@ export const CatalogContextProvider = (
 
 
 	const widthCard = getWidthWindow() > 1200
-		? 275
+		? 280
 		: getWidthWindow() > 640
-			? 240
+			? 250
 			: 215;
 
 	const gap = getWidthWindow() > 1200
 		? 56
 		: getWidthWindow() > 640
 			? 48
-			: 40;
+			: 30;
 
 	const getModelName = useCallback((name: string) => {
 		const regex = /^(.+)\s\d+GB/;
