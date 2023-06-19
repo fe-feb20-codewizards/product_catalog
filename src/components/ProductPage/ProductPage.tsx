@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './productPage.scss';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getPhone } from '../../api/phones';
 import { PhoneInfo } from '../../types/PhoneInfo';
 import { AddButton } from '../Features/AddButton/AddButton';
@@ -25,7 +25,7 @@ export default function ProductPage() {
 
 	if (!phoneData || !itemId) {
 		return <h1>Loading...</h1>;
-	}
+	}	
 
 	const { 
 		name,
@@ -47,6 +47,14 @@ export default function ProductPage() {
 	const product = phonesData.filter(phone => phone.itemId === itemId);
 
 	const mainImage = images[0];
+
+	const handleColorClick = (color: string) => {
+		const urlParts = location.pathname.split('-');
+		urlParts.pop();
+		urlParts.push(color);
+		const newUrl = urlParts.join('-');
+		return newUrl;
+	};
 
 	return (
 		<div className="productPage">
@@ -73,7 +81,16 @@ export default function ProductPage() {
 					</div>
 					<div className="productPage__options-section">
 						<div className="productPage__options-section-colors">
-							Avaible colors: <br /> {colorsAvailable.join(', ')}
+							{colorsAvailable.map((color, index) => (
+								<Link to={handleColorClick(color)} key={index} >
+									<li
+										className="productPage__options-section-colors-li" 
+										style={{
+											backgroundColor: color,
+										}}>
+									</li>
+								</Link>
+							))}
 						</div>
 						<div className="card__divider productPage__divider"></div>
 						<div className="productPage__options-section-capacity">

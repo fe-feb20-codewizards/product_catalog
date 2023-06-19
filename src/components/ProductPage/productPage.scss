@@ -79,6 +79,16 @@
 
   &__options-section {
     flex: 1;
+    &-colors {
+      &-li {
+				height: 25px;
+				width: 25px;
+				border-radius: 50%;
+				display: inline-block;
+				margin-right: 5px;
+        border: 1px solid black;
+      }
+    }
   }
 
   &__about-section {
