@@ -52,7 +52,7 @@ export function Checkout({ sum, quantity, handleClearEntireCart }: Props) {
 			</div>
 			<Snackbar
 				open={showAlert}
-				anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
+				anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
 				autoHideDuration={5000}
 				onClose={() => setShowAlert(false)}
 			>

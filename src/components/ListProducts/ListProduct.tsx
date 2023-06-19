@@ -98,7 +98,7 @@ export default function ListProduct({ list }: ListProductProps) {
 			<article className='productList__cards'>
 				{showingCards.map(list => <Card product={list} key={list.id} />)}
 			</article>
-			<div className='ProductList__pagination'>
+			<div className='productList__pagination'>
 				<Stack >
 					<Pagination count={maxPages} page={currentCardPag} onChange={handlePage} />
 				</Stack>
