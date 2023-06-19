@@ -1,6 +1,7 @@
 @import '../../styles/utils/utils.scss';
 
 .favorites {
+  height: calc(100vh - 205px);
 
   &__wrapper {
     max-width: 1400px;
