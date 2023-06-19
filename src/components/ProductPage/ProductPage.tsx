@@ -81,6 +81,7 @@ export default function ProductPage() {
 					</div>
 					<div className="productPage__options-section">
 						<div className="productPage__options-section-colors">
+							Available colors: <br />
 							{colorsAvailable.map((color, index) => (
 								<Link to={handleColorClick(color)} key={index} >
 									<li
