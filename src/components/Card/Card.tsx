@@ -3,11 +3,13 @@ import './card.scss';
 import { Phone } from '../../types/Phone';
 import { Link } from 'react-router-dom';
 import { useCatalogContext } from '../CatalogContext';
+import { Tablet } from '../../types/Tablet';
+
 interface CardProps {
-	phone: Phone;
+	product: Phone | Tablet;
   }
   
-export default function Card({ phone }: CardProps) {
+export default function Card({ product }: CardProps) {
 	const {
 		name,
 		itemId,
@@ -17,16 +19,16 @@ export default function Card({ phone }: CardProps) {
 		capacity,
 		ram,
 		image
-	} = phone;
+	} = product;
 	const { addToCart, favorites, addToFavorites, removeFromFavorites } = useCatalogContext();
 
-	const isFavorite = favorites.some((favoritePhone) => favoritePhone.id === phone.id);
+	const isFavorite = favorites.some((favoritePhone) => favoritePhone.id === product.id);
 
 	const handleFavoriteClick = () => {
 		if (isFavorite) {
-			removeFromFavorites(phone);
+			removeFromFavorites(product);
 		} else {
-			addToFavorites(phone);
+			addToFavorites(product);
 		}
 	};
 
@@ -72,7 +74,7 @@ export default function Card({ phone }: CardProps) {
 					<div className="card__buttons">
 						<button 
 							className="card__buttons-add-to-cart"
-							onClick={() => addToCart(phone)}
+							onClick={() => addToCart(product)}
 						>
 								Add to cart
 						</button>

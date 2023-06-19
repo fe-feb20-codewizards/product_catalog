@@ -50,7 +50,7 @@ export default function Discounts() {
 				{showingCards.map(card => <ul key={card.id} style={{
 					width: `${widthCard * 4}px`, transition: 'transform 1000ms',
 					transform: `translateX(-${pos}px)`,
-				}}> <Card key={card.id} phone={card} /> </ul>)}
+				}}> <Card key={card.id} product={card} /> </ul>)}
 			</div>
 		</section>
 	);

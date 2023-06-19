@@ -3,7 +3,6 @@ import React, { ReactNode, createContext, useCallback, useContext, useEffect, us
 import { Phone } from '../types/Phone';
 import { getAllPhones } from '../api/phones';
 import PhoneInCart from '../types/PhoneInCart';
-import { Sorted } from '../types/Sorted';
 import { getWidthWindow } from '../utils/getWinodw';
 
 interface ContextCatalog {
@@ -17,9 +16,6 @@ interface ContextCatalog {
 	addToCart: (phone: Phone) => void;
 	removeFromCart: (phone: string) => void;
 	changeCartItemQuantity: (id: string, value: number) => void;
-	sortedPhones: Phone[],
-	setSort: (sort: Sorted | null) => void,
-	sort: Sorted | null,
 	widthCard: number,
 	gap: number,
 	shuffledPhones: Phone[],
@@ -28,9 +24,9 @@ interface ContextCatalog {
 
 export const CatalogContext = createContext<ContextCatalog>(
 	{
-		sortedPhones: [],
-		setSort: () => { },
-		sort: null,
+		// sortedPhones: [],
+		// setSort: () => { },
+		// sort: null,
 		uniquePhones: [],
 		favorites: [],
 		shuffledPhones: [],
@@ -58,8 +54,6 @@ export const CatalogContextProvider = (
 	const [cart, setCart] = useState<PhoneInCart[]>([]);
 	const [cartSum, setCartSum] = useState(0);
 	const [cartQuantity, setCartQuantity] = useState(0);
-	const [sort, setSort] = useState<Sorted | null>(null);
-
 
 	useEffect(() => {
 		getAllPhones()
@@ -96,27 +90,7 @@ export const CatalogContextProvider = (
 	}, [cart]);
 	
 
-	const sortedPhones = useMemo(() => {
-		let newPhones = phonesData;
-		if (sort) {
-			switch (sort) {
-			case Sorted.Newest: newPhones = newPhones.sort((a, b) => b.year - a.year);
-				break;
-			case Sorted.PriceDown: newPhones = newPhones.sort((a, b) => b.price - a.price);
-				break;
-			case Sorted.PriceUp: newPhones = newPhones.sort((a, b) => a.price - b.price);
-				break;
-			case Sorted.Oldest: newPhones = newPhones.sort((a, b) => a.year - b.year);
-				break;
-			case Sorted.NoSort: newPhones = newPhones.sort((a, b) => a.itemId.localeCompare(b.itemId));
-				break;
-			default: newPhones;
-				break;
-			}
-		}
 
-		return newPhones;
-	}, [phonesData, sort]);
 
 	const widthCard = getWidthWindow() > 1200
 		? 275
@@ -134,7 +108,7 @@ export const CatalogContextProvider = (
 		const regex = /^(.+)\s\d+GB/;
 		const match = name.match(regex);
 		return match ? match[1] : name;
-	}, [phonesData, sort, cart]);
+	}, [phonesData, cart]);
 
 	const uniquePhones = Array.from(
 		phonesData
@@ -233,9 +207,6 @@ export const CatalogContextProvider = (
 	return (
 		<CatalogContext.Provider value={{
 			uniquePhones,
-			sortedPhones,
-			setSort,
-			sort,
 			favorites,
 			addToFavorites,
 			removeFromFavorites,
