@@ -14,6 +14,9 @@
     @media (min-width: 1800px) {
         padding: 70px 250px 0;
     }
+    @media (min-width: 2500px) {
+        padding: 70px 500px 0;
+    }
 
     &__header {
         align-items: left;
@@ -45,16 +48,4 @@
             opacity: 1;
         }
     }
-
-    &__pagination {
-        align-items: center;
-        text-align: center;
-        margin: auto;
-    }
-
-    &__cards {
-        margin: 15px auto;
-        display: grid;
-    }
-
 }

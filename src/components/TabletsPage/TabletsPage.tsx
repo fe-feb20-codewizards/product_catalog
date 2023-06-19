@@ -8,7 +8,7 @@ export function TabletsPage() {
 	const { phonesData } = useCatalogContext();
 	return (
 		<div className='tablets'>
-			<div>
+			<div className='tablets__links'>
 				<Link to="/" className="tablets__link">
 					<img src={process.env.PUBLIC_URL + '/images/Home.jpg'} alt="" className='tablets__home'/>
 				</Link>
