@@ -8,12 +8,11 @@
     }
 
     &__pagination {
+        text-align: center;
         align-items: center;
         text-align: center;
         margin: 15px auto;
-        margin-bottom: 30px;
-        display: flex;
-        flex-direction: row;
+        margin-left: 35%;
     }
 
     &__cards {
