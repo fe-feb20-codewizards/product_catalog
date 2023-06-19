@@ -16,5 +16,5 @@ export default function Button({ page, current, handlePage }: ButtonProps) {
 			border: '1px solid green',
 			color: 'green'
 		};
-	return (<button className="button" style={style} onClick={()=> handlePage(page)} >{page}</button>);
+	return (<button className="button" style={style} onClick={()=> handlePage(page)} ><p style={{margin: 'auto', textAlign: 'center', alignItems: 'center'}}>{page}</p></button>);
 }

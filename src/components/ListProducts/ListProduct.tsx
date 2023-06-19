@@ -19,6 +19,8 @@ export default function ListProduct({ list }: ListProductProps) {
 	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
 	const page = usePageChanger(1, list.length, perPage);
 	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
+
+	const lastVisiblePage = Math.ceil(list.length / perPage);
 	
 	const sortedProducts = useMemo(() => {
 		let newList = list;
@@ -132,7 +134,9 @@ export default function ListProduct({ list }: ListProductProps) {
 					lastButton={lastButton}
 					currentCardPag={currentCardPag}
 					firstPage={firstPage}
-					lastPage={lastPage} />
+					lastPage={lastPage} 
+					lastVisiblePage={lastVisiblePage}
+				/>
 			</div>
 			<article className='productList__cards'>
 				{showingCards.map(list => <Card product={list} key={list.id} />)}
@@ -146,7 +150,9 @@ export default function ListProduct({ list }: ListProductProps) {
 					lastButton={lastButton}
 					currentCardPag={currentCardPag}
 					firstPage={firstPage}
-					lastPage={lastPage} />
+					lastPage={lastPage} 
+					lastVisiblePage={lastVisiblePage}
+				/>
 			</div>
 		</div>
 	);

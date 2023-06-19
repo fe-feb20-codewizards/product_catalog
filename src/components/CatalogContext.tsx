@@ -85,9 +85,6 @@ export const CatalogContextProvider = (
 			)
 		);
 	}, [cart]);
-	
-
-
 
 	const widthCard = getWidthWindow() > 1200
 		? 275
