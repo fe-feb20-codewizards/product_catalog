@@ -1,15 +1,14 @@
 @import '../../styles/utils/utils.scss';
 
 .tablets {
-    padding: 16px;
-    margin: 10px 150px;
+    padding: 20px auto;
 
     @include tablet {
-        padding: 24px;
+        padding: 24px auto;
     }
 
     @include desktop {
-        padding: 32px;
+        padding: 32px auto;
     }
 
     &__header {

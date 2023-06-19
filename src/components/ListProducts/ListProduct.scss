@@ -4,7 +4,7 @@
     padding: 10px auto;
 
     @include desktop {
-        padding: 30px 150px;
+        padding: 30px auto;
     }
 
     &__pagination {
@@ -36,32 +36,5 @@
         @media (min-width: 2200px) {
             grid-template-columns: repeat(8, minmax(280px, 1fr));
         }
-    }
-}
-
-
-.sorting {
-    display: flex;
-    border-radius: 10%;
-    font-size: 14px;
-    margin-bottom: 15px;
-    flex-direction: column;
-    margin: auto;
-
-    @include tablet {
-        flex-direction: row;
-    }
-
-    &-sortby {
-        height: 40px;
-        width: 176px;
-        border: 1px solid #B4BDC4;
-        margin: 0 10px;
-    }
-
-    &-pages {
-        height: 40px;
-        width: 128px;
-        border: 1px solid #B4BDC4;
     }
 }
