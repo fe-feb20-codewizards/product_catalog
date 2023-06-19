@@ -9,7 +9,7 @@ import { useCarousel } from '../../../utils/carousel';
 export default function NewModels() {
 	const {uniquePhones, widthCard, gap} = useCatalogContext();
 	const latestPhones = uniquePhones.sort((a, b) => b.year - a.year);
-	const page = usePageChanger(1, latestPhones.length, 4);
+	const page = usePageChanger(1, latestPhones.length, 1);
 	const { currentCardPag, firstPage, lastPage, onPageChange } = page;
 
 	const carousel = useCarousel(0);

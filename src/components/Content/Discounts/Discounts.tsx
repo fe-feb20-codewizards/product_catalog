@@ -8,7 +8,7 @@ import { useCarousel } from '../../../utils/carousel';
 
 export default function Discounts() {
 	const { shuffledPhones, widthCard, gap } = useCatalogContext();
-	const page = usePageChanger(1, shuffledPhones.length, 4);
+	const page = usePageChanger(1, shuffledPhones.length, 1);
 	const { currentCardPag, firstPage, lastPage, onPageChange } = page;
 	const carousel = useCarousel(0);
 	const { pos, onPosChange } = carousel;
