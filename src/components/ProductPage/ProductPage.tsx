@@ -20,8 +20,6 @@ export default function ProductPage() {
 		}
 	}, [itemId]);
 
-	console.log(itemId);
-
 	if (!phoneData || !itemId) {
 		return <h1>Loading...</h1>;
 	}

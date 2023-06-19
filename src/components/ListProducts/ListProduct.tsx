@@ -14,6 +14,12 @@ interface ListProductProps {
 
 export default function ListProduct({ list }: ListProductProps) {
 	const [sort, setSort] = useState<Sorted | null>(null);
+	const [perPage, setPerPage] = useState(16);
+	const pagin = useChangeCatalog(list.length, perPage);
+	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
+	const page = usePageChanger(1, list.length, perPage);
+	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
+	
 	const sortedProducts = useMemo(() => {
 		let newList = list;
 		if (sort) {
@@ -35,23 +41,16 @@ export default function ListProduct({ list }: ListProductProps) {
 
 		return newList;
 	}, [list, sort]);
-	const [perPage, setPerPage] = useState(16);
-	const pagin = useChangeCatalog(list.length, perPage);
-	const { firstButton, lastButton, maxPages, onChanger, activeButton } = pagin;
-	const page = usePageChanger(1, list.length, perPage);
-	const { currentCardPag, onPageChange, startingCard, endingCard, firstPage, lastPage } = page;
-
-	const resetPage = () => {
+	const resetPage = useCallback(() => {
 		onPageChange(1);
 		onChanger(1);
-	};
+	}, [sort]);
 
 	const handlePerpage = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
 		resetPage();
 		setPerPage(Number(event.target.value));
 
 	}, [perPage, activeButton, list]);
-
 
 	const handleSort = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
 		const choose = event.target.value;
@@ -71,8 +70,6 @@ export default function ListProduct({ list }: ListProductProps) {
 			break;
 		}
 	}, [sort]);
-
-
 
 	const showingCards = sortedProducts.slice(startingCard - 1, endingCard);
 
