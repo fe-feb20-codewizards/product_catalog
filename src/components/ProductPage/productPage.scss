@@ -65,14 +65,36 @@
       width: 70%;
     }
 
+    &-thumbnail {
+      max-width: 5rem;
+      max-height: 12rem;
+      text-align: center;
+
+     
+    }
+
     &-thumbnails {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      height: 70vh;
+      display: grid;
+      grid-template-rows: repeat(5, minmax(30px, 1fr));
+      gap: 5px;
+      height: 20vh;
+
+      @include tablet {
+        grid-template-rows: repeat(5, minmax(100px, 1fr));
+        gap: 10px;
+        height: 70vh;
+      }
+
+      @include desktop {
+        grid-template-rows: repeat(5, minmax(120px, 1fr));
+        gap: 15px;
+        height: 12rem;
+      }
 
       &-thumbnail {
-        width: 50%;
+          max-width: 100%;
+          max-height: 100%;
+       
       }
     }
   }

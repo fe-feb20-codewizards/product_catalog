@@ -67,6 +67,9 @@ export default function ProductPage() {
 	const selectedCapacity = location.pathname.split('-').slice(-2, -1)[0];
 	const selectedColor = location.pathname.split('-').pop();
 
+	const handleOpenModal = (img: React.MouseEvent<HTMLImageElement>) => {
+		console.log(img);
+	};
 
 	return (
 		<div className="productPage">
@@ -75,7 +78,18 @@ export default function ProductPage() {
 				<div className="productPage__top-section">
 					<div className="productPage__image-section">
 						<div className="productPage__image-section-thumbnails">
-							
+							<div className="productPage__image-section-thumbnails">
+								{images.map((thumbnail, index) => (
+									<div key={index} className='productPage__image-section-thumbnail'>
+										<img
+											src={process.env.PUBLIC_URL + '/' + thumbnail}
+											alt={name}
+											className="productPage__image-section-thumbnails-thumbnail"
+											onClick={(thumbnail) => handleOpenModal(thumbnail)}
+										/>
+									</div>
+								))}
+							</div>
 							
 						</div>
 
