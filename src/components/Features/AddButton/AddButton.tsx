@@ -36,7 +36,7 @@ export function AddButton({product}: AddButtonProps) {
 		>
 			<img
 				className="buttons-add-to-favorites-icon"
-				src={process.env.PUBLIC_URL + (isFavorite ? '/images/union.png' : '/images/heart.svg')}
+				src={process.env.PUBLIC_URL + (isFavorite ? '/images/Union.png' : '/images/heart.svg')}
 				alt="Add to favorites"
 			/>
 		</button>
