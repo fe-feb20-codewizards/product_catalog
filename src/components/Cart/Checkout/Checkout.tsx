@@ -45,7 +45,7 @@ export function Checkout({ sum, quantity, handleClearEntireCart }: Props) {
 							Thank you for your order.
 						</p>
 						<p className="checkout__success-message">
-							Redirecting you to the <Link to="/">homepage </Link> in 5 seconds...
+							Redirecting you to the <Link to="/product_catalog/">homepage </Link> in 5 seconds...
 						</p>
 					</div>
 				)}
