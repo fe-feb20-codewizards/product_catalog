@@ -1,14 +1,12 @@
 import React from 'react';
-import { useCatalogContext } from '../CatalogContext';
-import ListProduct from '../ListProducts/ListProduct';
-import { Link } from 'react-router-dom';
+// import { useCatalogContext } from '../CatalogContext';
 import './Accessories.scss';
 
 export function Accessories() {
-	const { phonesData } = useCatalogContext();
+	// const { phonesData } = useCatalogContext();
 	return (
 		<div className='accessories'>
-			<div>
+			{/* <div>
 				<Link to="/" className="accessories__link">
 					<img src={process.env.PUBLIC_URL + '/images/Home.jpg'} alt="" className='accessories__home' />
 				</Link> 
@@ -21,7 +19,8 @@ export function Accessories() {
 			</header>
 			<section>
 				<ListProduct list={phonesData} />
-			</section>
+			</section> */}
+			<h1 style={{fontSize: '50px', textAlign: 'center'}}>Page in building process!!!</h1>
 		</div>
 	);
 }

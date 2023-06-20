@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React from 'react';
-
 import { Phone } from '../../../types/Phone';
 import { Tablet } from '../../../types/Tablet';
 import './AddButton.scss';

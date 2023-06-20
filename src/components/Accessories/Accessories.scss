@@ -1,15 +1,21 @@
 @import '../../styles/utils/utils.scss';
 
 .accessories {
-    padding: 16px;
-    margin: 10px 150px;
+    padding: 10px 20px 0;
 
     @include tablet {
-        padding: 24px;
+        padding: 20px 50px 0;
     }
 
     @include desktop {
-        padding: 32px;
+        padding: 50px auto 0;
+    }
+
+    @media (min-width: 1800px) {
+        padding: 70px auto 0;
+    }
+    @media (min-width: 2500px) {
+        padding: 70px auto 0;
     }
 
     &__header {

@@ -12,7 +12,11 @@
         align-items: center;
         text-align: center;
         margin: 15px auto;
-        margin-left: 35%;
+
+        @include tablet {
+            margin-left: 30%; 
+        }
+       
     }
 
     &__cards {
