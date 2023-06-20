@@ -1,14 +1,14 @@
 import React from 'react';
 import { useCatalogContext } from '../CatalogContext';
-import ListProduct from '../ListProducts/ListProduct';
-import { Link } from 'react-router-dom';
+// import ListProduct from '../ListProducts/ListProduct';
+// import { Link } from 'react-router-dom';
 import './TabletsPage.scss';
 
 export function TabletsPage() {
-	const { phonesData } = useCatalogContext();
+	// const { phonesData } = useCatalogContext();
 	return (
 		<div className='tablets'>
-			<div className='tablets__links'>
+			{/* <div className='tablets__links'>
 				<Link to="/product_catalog/" className="tablets__link">
 					<img src={process.env.PUBLIC_URL + '/images/Home.jpg'} alt="" className='tablets__home'/>
 				</Link>
@@ -21,7 +21,8 @@ export function TabletsPage() {
 			</header>
 			<section>
 				<ListProduct list={phonesData} />  
-			</section>
+			</section> */}
+			<h1 style={{fontSize: '50px', textAlign: 'center'}}>Page in building process!!!</h1>
 		</div>
 	);
 }
