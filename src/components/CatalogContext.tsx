@@ -96,7 +96,7 @@ export const CatalogContextProvider = (
 		? 56
 		: getWidthWindow() > 640
 			? 48
-			: 30;
+			: 40;
 
 	const getModelName = useCallback((name: string) => {
 		const regex = /^(.+)\s\d+GB/;

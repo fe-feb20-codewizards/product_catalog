@@ -75,14 +75,8 @@ export default function ProductPage() {
 				<div className="productPage__top-section">
 					<div className="productPage__image-section">
 						<div className="productPage__image-section-thumbnails">
-							{images.map((thumbnail, index) => (
-								<img
-									key={index}
-									src={process.env.PUBLIC_URL + '/' + thumbnail}
-									alt={name}
-									className="productPage__image-section-thumbnails-thumbnail"
-								/>
-							))}
+							
+							
 						</div>
 
 						<img
