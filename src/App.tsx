@@ -23,13 +23,13 @@ function App() {
 				<Route path="/product_catalog" element={<Content />}>
 					<Route path=':direction' element={<Content />}/>
 				</Route>
-				<Route path="/product_catalog/home" element={<Navigate to="/" />} />
+				<Route path="/product_catalog/home" element={<Navigate to="/product_catalog" />} />
 				<Route path="/product_catalog/phones" element={<PhonesPage />} />
 				<Route path="/product_catalog/tablets" element={<TabletsPage />} />
 				<Route path="/product_catalog/accessories" element={<Accessories />} />
 				<Route path="/product_catalog/favorites" element={<Favorites />} />
 				<Route path="/product_catalog/cart" element={<Cart />} />
-				<Route path="/product_catalog/product_catalog" element={<Navigate to="/" />} />
+				<Route path="/product_catalog/product_catalog" element={<Navigate to="/product_catalog" />} />
 				<Route path="/product_catalog/*" element={<NotFoundPage />} />
 			</Routes>
 
