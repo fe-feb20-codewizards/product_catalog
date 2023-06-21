@@ -30,6 +30,7 @@ function App() {
 				<Route path="/product_catalog/favorites" element={<Favorites />} />
 				<Route path="/product_catalog/cart" element={<Cart />} />
 				<Route path="/product_catalog/product_catalog" element={<Navigate to="/product_catalog" />} />
+				<Route path="/" element={<Navigate to="/product_catalog" />} />
 				<Route path="/product_catalog/*" element={<NotFoundPage />} />
 			</Routes>
 
