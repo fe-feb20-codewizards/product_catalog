@@ -111,7 +111,13 @@ export default function ProductPage() {
         colorOption.toLowerCase() === selectedColor,
 										})}
 										style={{
-											backgroundColor: colorOption,
+											backgroundColor: colorOption !== 'midnightgreen' 
+												? colorOption !== 'spacegray' 
+													? colorOption !== 'rosegold'
+														?	colorOption
+														: 'lightpink'
+													: 'gray' 
+												: 'teal',
 										}}>
 									</li>
 								</Link>

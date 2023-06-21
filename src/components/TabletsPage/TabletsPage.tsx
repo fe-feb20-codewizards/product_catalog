@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCatalogContext } from '../CatalogContext';
+// import { useCatalogContext } from '../CatalogContext';
 // import ListProduct from '../ListProducts/ListProduct';
 // import { Link } from 'react-router-dom';
 import './TabletsPage.scss';
