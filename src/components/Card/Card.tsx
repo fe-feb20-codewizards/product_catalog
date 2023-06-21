@@ -4,6 +4,7 @@ import { Phone } from '../../types/Phone';
 import { Link } from 'react-router-dom';
 import { Tablet } from '../../types/Tablet';
 import { AddButton } from '../Features/AddButton/AddButton';
+import { Loader } from '../Features/Loader/Loader';
 
 interface CardProps {
 	product: Phone | Tablet;
@@ -20,6 +21,10 @@ export default function Card({ product }: CardProps) {
 		ram,
 		image
 	} = product;
+
+	if (!product) {
+		return <Loader />;
+	}
 
 	return (
 		<div className="card">
