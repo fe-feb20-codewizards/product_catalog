@@ -6,6 +6,7 @@ import { PhoneInfo } from '../../types/PhoneInfo';
 import { AddButton } from '../Features/AddButton/AddButton';
 import { useCatalogContext } from '../CatalogContext';
 import classNames from 'classnames';
+import { Loader } from '../Features/Loader/Loader';
 
 export default function ProductPage() {
 	const { itemId } = useParams<{ itemId: string }>();
@@ -25,7 +26,7 @@ export default function ProductPage() {
 	}, [itemId]);
 
 	if (!phoneData || !itemId) {
-		return <h1>Loading...</h1>;
+		return (<Loader />);
 	}	
 
 	const { 
@@ -110,7 +111,13 @@ export default function ProductPage() {
         colorOption.toLowerCase() === selectedColor,
 										})}
 										style={{
-											backgroundColor: colorOption,
+											backgroundColor: colorOption !== 'midnightgreen' 
+												? colorOption !== 'spacegray' 
+													? colorOption !== 'rosegold'
+														?	colorOption
+														: 'lightpink'
+													: 'gray' 
+												: 'teal',
 										}}>
 									</li>
 								</Link>

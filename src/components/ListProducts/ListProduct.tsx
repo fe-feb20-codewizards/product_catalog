@@ -9,6 +9,7 @@ import { Tablet } from '../../types/Tablet';
 import { Sorting } from '../Features/Sorting/Sorting';
 import Pagination from '@mui/material/Pagination';
 import { Stack } from '@mui/material';
+import { Loader } from '../Features/Loader/Loader';
 
 interface ListProductProps {
     list: Phone[] | Tablet[],
@@ -79,6 +80,10 @@ export default function ListProduct({ list }: ListProductProps) {
 		onPageChange(value);
 		onChanger(value);
 	}, [activeButton, perPage]);
+
+	if (!list) {
+		return <Loader />;
+	}
 
 	return (
 		<div className='productList'>

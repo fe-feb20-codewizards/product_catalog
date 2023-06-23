@@ -1,6 +1,7 @@
 import React from 'react';
 // import { useCatalogContext } from '../CatalogContext';
 import './Accessories.scss';
+import { Loader } from '../Features/Loader/Loader';
 
 export function Accessories() {
 	// const { phonesData } = useCatalogContext();
@@ -20,7 +21,8 @@ export function Accessories() {
 			<section>
 				<ListProduct list={phonesData} />
 			</section> */}
-			<h1 style={{fontSize: '50px', textAlign: 'center'}}>Page in building process!!!</h1>
+			{/* <h1 style={{fontSize: '50px', textAlign: 'center'}}>Page in building process!!!</h1> */}
+			<Loader />
 		</div>
 	);
 }
